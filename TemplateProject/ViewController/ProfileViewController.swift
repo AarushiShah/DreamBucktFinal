@@ -7,7 +7,18 @@
 //
 
 import UIKit
+import Parse
 
 class ProfileViewController: UIViewController {
 
+    
+    var user: PFUser!
+    
+    override func viewDidLoad() {
+        println(user)
+        println(user["quote"])
+        //user.downloadImage()
+        
+    }
+    
 }

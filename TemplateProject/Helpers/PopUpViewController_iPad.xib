@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PopUpViewController">
             <connections>
-                <outlet property="logoImg" destination="gmN-gy-bjy" id="QgK-YD-PTP"/>
-                <outlet property="messageLabel" destination="zzP-bh-DHM" id="Vcd-7j-vWE"/>
                 <outlet property="popUpView" destination="cYT-D9-Z5J" id="idF-M2-Ksa"/>
                 <outlet property="view" destination="1" id="b8x-g2-m73"/>
             </connections>
@@ -34,32 +33,23 @@
                                 <action selector="closePopup:" destination="-1" eventType="touchUpInside" id="ROG-kC-NZA"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gmN-gy-bjy">
-                            <rect key="frame" x="110" y="20" width="169" height="126"/>
+                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="dxf-Ah-Xjm">
+                            <rect key="frame" x="8" y="43" width="267" height="165"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="169" id="Y9s-pZ-2pq"/>
+                                <constraint firstAttribute="width" constant="267" id="H7k-sR-hLr"/>
+                                <constraint firstAttribute="height" constant="162" id="L8N-OE-qaY"/>
                             </constraints>
-                        </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="243" translatesAutoresizingMaskIntoConstraints="NO" id="zzP-bh-DHM">
-                            <rect key="frame" x="73" y="199" width="243" height="110"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="110" id="dIE-P4-CkO"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <date key="date" timeIntervalSinceReferenceDate="459718930.52808601">
+                                <!--2015-07-27 19:42:10 +0000-->
+                            </date>
+                        </datePicker>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="gmN-gy-bjy" firstAttribute="top" secondItem="cYT-D9-Z5J" secondAttribute="top" constant="20" symbolic="YES" id="Jfb-OE-esZ"/>
-                        <constraint firstItem="gmN-gy-bjy" firstAttribute="centerX" secondItem="zzP-bh-DHM" secondAttribute="centerX" id="hBO-UX-EXa"/>
+                        <constraint firstItem="dxf-Ah-Xjm" firstAttribute="leading" secondItem="cYT-D9-Z5J" secondAttribute="leadingMargin" id="Bjd-gG-w7C"/>
+                        <constraint firstItem="dxf-Ah-Xjm" firstAttribute="top" secondItem="cYT-D9-Z5J" secondAttribute="top" constant="43" id="M0M-US-bwj"/>
                         <constraint firstAttribute="bottom" secondItem="Ple-bp-UYe" secondAttribute="bottom" constant="40" id="jam-1d-aCo"/>
-                        <constraint firstItem="zzP-bh-DHM" firstAttribute="leading" secondItem="cYT-D9-Z5J" secondAttribute="leading" constant="73" id="k0E-8Q-Gka"/>
-                        <constraint firstItem="Ple-bp-UYe" firstAttribute="top" secondItem="zzP-bh-DHM" secondAttribute="bottom" constant="70" id="pWB-QQ-55j"/>
                         <constraint firstItem="Ple-bp-UYe" firstAttribute="centerX" secondItem="cYT-D9-Z5J" secondAttribute="centerX" id="pWk-a1-Nos"/>
-                        <constraint firstItem="zzP-bh-DHM" firstAttribute="centerX" secondItem="Ple-bp-UYe" secondAttribute="centerX" id="wJc-lN-k2Z"/>
-                        <constraint firstItem="zzP-bh-DHM" firstAttribute="top" secondItem="gmN-gy-bjy" secondAttribute="bottom" constant="53" id="xd2-Fl-YNT"/>
                     </constraints>
                 </view>
             </subviews>

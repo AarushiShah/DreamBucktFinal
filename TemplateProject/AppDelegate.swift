@@ -17,25 +17,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     var window: UIWindow?
     var parseLoginHelper: ParseLoginHelper!
-    var logoView: UIView!
-    //  var imageView: UIImage
-    var background: UIColor!
-    
     
     override init() {
         super.init()
         
         parseLoginHelper = ParseLoginHelper {[unowned self] user, error in
-            //Initialize the ParseLoginHelper with a callback
+            // Initialize the ParseLoginHelper with a callback
             if let error = error {
                 // 1
                 ErrorHandling.defaultErrorHandler(error)
             } else  if let user = user {
-                //if login was successful, display the TabBarController
+                // if login was successful, display the TabBarController
                 // 2
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UIViewController
-                //3
+                // 3
                 self.window?.rootViewController!.presentViewController(tabBarController, animated:true, completion:nil)
             }
         }
@@ -45,49 +41,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         Parse.setApplicationId("vs5D3XQKIXRambyOBJaUkJJAY4hKSUwBYSaBaIkx", clientKey: "D3XIiDoS1xMqrJJRIHdNk7nBrdr4cT25EOD1m9Ed")
-        
         // Initialize Facebook
         // 1
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
+        // check if we have logged in user
+        // 2
+        let user = PFUser.currentUser()
         
-        var user = PFUser.currentUser()
-        var storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        
+        let startViewController: UIViewController;
         
         if (user != nil) {
             // 3
             // if we have a user, set the TabBarController to be the initial View Controller
-            
-            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            
-            
-            var initialViewController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
-            
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
-            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            startViewController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
         } else {
             // 4
             // Otherwise set the LoginViewController to be the first
+            let loginViewController = PFLogInViewController()
+            loginViewController.fields = .UsernameAndPassword | .LogInButton | .SignUpButton | .PasswordForgotten | .Facebook
+            loginViewController.delegate = parseLoginHelper
+            loginViewController.signUpController?.delegate = parseLoginHelper
             
-            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            
-            let loginViewController = CustomLoginViewController()
-            
-            var initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginView") as! UIViewController
-            
-            self.window?.rootViewController = initialViewController
-            
-            self.window?.makeKeyAndVisible()
+            startViewController = loginViewController
         }
         
-        return true
-        
-        
-        //UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
-        //return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        // 5
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.rootViewController = startViewController;
+        self.window?.makeKeyAndVisible()
+    
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
     func applicationWillResignActive(application: UIApplication) {

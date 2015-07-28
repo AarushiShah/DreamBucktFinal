@@ -16,6 +16,11 @@ class ParseHelper {
     static let ParseUserClass      = "User"
     static let ParseFriendsArray = "friends"
     
+    // Friend Relation
+    static let ParseFollowClass       = "Friend"
+    static let ParseFollowFromUser    = "fromUser"
+    static let ParseFollowToUser      = "toUser"
+    
     //MARK: Users
     //fetches all the users, except the ones that are currently logined in
     //also limits the amount of users returned to 20
@@ -40,12 +45,24 @@ class ParseHelper {
         query.findObjectsInBackgroundWithBlock(completionBlock)
         return query
     }
-    static func getFriendsForUser(user:PFUser, completionBlock: PFArrayResultBlock ) {
+    static func getFriendsForUser(user:PFUser, completionBlock: PFArrayResultBlock ){
         
         let query = PFUser.query()!
         query.whereKey(ParseUserUsername, equalTo: PFUser.currentUser()!.username!)
         query.includeKey(ParseFriendsArray)
         query.findObjectsInBackgroundWithBlock(completionBlock)
+    }
+    static func addFriendRelationshipFromUser(user: PFUser, toUser: PFUser) {
+        let friendObject = PFObject(className: ParseFollowClass)
+        friendObject.setObject(user, forKey: ParseFollowFromUser)
+        friendObject.setObject(toUser, forKey: ParseFollowToUser)
+        friendObject.saveInBackgroundWithBlock(nil)
+    }
+    static func getProfileImage(user: PFUser) {
+        
+        let query = PFUser.query()!
+        query.whereKey(ParseUserUsername, equalTo: user.username!)
+        
     }
 
 }

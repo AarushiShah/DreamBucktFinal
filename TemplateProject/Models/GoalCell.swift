@@ -6,4 +6,10 @@
 //  Copyright (c) 2015 Make School. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class GoalCell: UICollectionViewCell {
+    
+    @IBOutlet var imgCell: UIImageView!
+    @IBOutlet var lblCell: UILabel!
+}

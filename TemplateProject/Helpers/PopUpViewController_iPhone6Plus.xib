@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PopUpViewControllerSwift">
             <connections>
-                <outlet property="logoImg" destination="yDP-ZJ-klu" id="oMX-qq-gMm"/>
-                <outlet property="messageLabel" destination="4bq-P4-Htc" id="2nE-bX-fx3"/>
+                <outlet property="dateView" destination="hMJ-Ac-dsI" id="XbX-qH-ymF"/>
                 <outlet property="popUpView" destination="HxJ-fg-egd" id="Afl-LM-Hsl"/>
                 <outlet property="view" destination="iN0-l3-epB" id="1Li-NQ-5sE"/>
             </connections>
@@ -21,7 +19,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HxJ-fg-egd">
                     <rect key="frame" x="47" y="175" width="320" height="386"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5K9-bf-qnf">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5K9-bf-qnf">
                             <rect key="frame" x="58" y="336" width="203" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="1wk-yc-7zh"/>
@@ -34,31 +32,22 @@
                                 <action selector="closePopup:" destination="-1" eventType="touchUpInside" id="eug-aM-Pq4"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yDP-ZJ-klu">
-                            <rect key="frame" x="57" y="20" width="206" height="178"/>
-                        </imageView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="243" translatesAutoresizingMaskIntoConstraints="NO" id="4bq-P4-Htc">
-                            <rect key="frame" x="20" y="206" width="280" height="110"/>
+                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="hMJ-Ac-dsI">
+                            <rect key="frame" x="-20" y="0.0" width="320" height="237"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="110" id="8Fa-Ix-wEn"/>
+                                <constraint firstAttribute="height" constant="216" id="hAZ-GX-vv7"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <date key="date" timeIntervalSinceReferenceDate="459718974.07194299">
+                                <!--2015-07-27 19:42:54 +0000-->
+                            </date>
+                        </datePicker>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="4bq-P4-Htc" firstAttribute="leading" secondItem="HxJ-fg-egd" secondAttribute="leading" constant="20" symbolic="YES" id="MHj-51-oxy"/>
-                        <constraint firstAttribute="trailing" secondItem="4bq-P4-Htc" secondAttribute="trailing" constant="20" symbolic="YES" id="U69-TJ-5fL"/>
-                        <constraint firstItem="5K9-bf-qnf" firstAttribute="top" secondItem="4bq-P4-Htc" secondAttribute="bottom" constant="20" id="YuJ-rW-6zB"/>
-                        <constraint firstItem="4bq-P4-Htc" firstAttribute="top" secondItem="yDP-ZJ-klu" secondAttribute="bottom" constant="8" symbolic="YES" id="cSR-33-2mh"/>
+                        <constraint firstItem="hMJ-Ac-dsI" firstAttribute="top" secondItem="HxJ-fg-egd" secondAttribute="top" id="Jhz-TQ-jUT"/>
                         <constraint firstAttribute="bottom" secondItem="5K9-bf-qnf" secondAttribute="bottom" constant="20" symbolic="YES" id="hCa-vB-Oea"/>
                         <constraint firstItem="5K9-bf-qnf" firstAttribute="leading" secondItem="HxJ-fg-egd" secondAttribute="leading" constant="58" id="imt-oy-OKn"/>
-                        <constraint firstItem="5K9-bf-qnf" firstAttribute="centerX" secondItem="4bq-P4-Htc" secondAttribute="centerX" id="inP-TU-wLv"/>
-                        <constraint firstItem="yDP-ZJ-klu" firstAttribute="leading" secondItem="HxJ-fg-egd" secondAttribute="leading" constant="57" id="jUE-NO-7dj"/>
-                        <constraint firstItem="4bq-P4-Htc" firstAttribute="centerX" secondItem="yDP-ZJ-klu" secondAttribute="centerX" id="mZE-Yk-lTq"/>
-                        <constraint firstItem="yDP-ZJ-klu" firstAttribute="top" secondItem="HxJ-fg-egd" secondAttribute="top" constant="20" symbolic="YES" id="oTr-lx-QyI"/>
+                        <constraint firstItem="hMJ-Ac-dsI" firstAttribute="leading" secondItem="HxJ-fg-egd" secondAttribute="leading" constant="-20" id="xt2-TN-Kyy"/>
                     </constraints>
                 </view>
             </subviews>
