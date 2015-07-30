@@ -13,11 +13,13 @@ class TimelineViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     var goals: [Goal] = []
+    var users: [PFUser] = []
+    var numOfLikes: Int = 0
+    var cellTapped:Bool = true
+    var currentRow = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -28,16 +30,28 @@ class TimelineViewController: UIViewController {
             self.goals = result as? [Goal] ?? []
             
             for eachgoal in self.goals {
-                // 2
+                
                 let data = eachgoal.imageFile?.getData()
-                // 3
+                
                 if (data != nil) {
                     eachgoal.image = UIImage(data: data!, scale:1.0)
                 }
+                
+                let user = eachgoal.ofUser
+                self.users.append(user!)
             }
             self.tableView.reloadData()
         }
      }
+    @IBAction func commentButtonTapped(sender: AnyObject) {
+        
+       // var selectedRowIndex = indexPath
+       // currentRow = selectedRowIndex.row
+        
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -52,21 +66,33 @@ extension TimelineViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // 2
         
-        if (goals[indexPath.row].image == nil) {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("PendingGoalCell") as! PendingGoalTableViewCell
-            cell.textLabel?.text = goals[indexPath.row].title
-            return cell
-        }
-        else {
             let cell = tableView.dequeueReusableCellWithIdentifier("GoalCell") as! GoalTableViewCell
             
             cell.goalImageView.image = goals[indexPath.row].image
             cell.titleLable?.text = goals[indexPath.row].title
+            let username = users[indexPath.row].username
+            cell.accomplishedTitle.text = ("\(username) Accomplished a Goal")
+            cell.floatRatingView.emptyImage = UIImage(named: "Star")
+            cell.floatRatingView.fullImage = UIImage(named: "SelectedStar")
+            cell.floatRatingView.editable = false
+            cell.floatRatingView.rating = goals[indexPath.row].starRating
+            cell.goal = goals[indexPath.row]
+           numOfLikes = goals[indexPath.row].fetchLikes()
+           cell.likesLabel.text = "\(numOfLikes)"
             return cell
         }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == currentRow {
+            if cellTapped == false {
+                cellTapped = true
+                return 141
+            } else {
+                cellTapped = false
+                return 70
+            }
+        }
+        return 70
+      }
     }
-    
-}
+

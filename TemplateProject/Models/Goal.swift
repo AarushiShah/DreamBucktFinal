@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Bond
 
 class Goal: PFObject, PFSubclassing{
     
@@ -21,6 +22,7 @@ class Goal: PFObject, PFSubclassing{
     @NSManaged var imageFile: PFFile?
     
     var image:UIImage?
+    var likes =  Dynamic<[PFUser]?>(nil)
     
    
     static func parseClassName() -> String {
@@ -46,5 +48,45 @@ class Goal: PFObject, PFSubclassing{
         }
         
 
+    }
+    func doesUserLikePost(user: PFUser) -> Bool {
+        if let likes = likes.value {
+            return contains(likes, user)
+        } else {
+            return false
+        }
+    }
+    
+    func toggleLikePost(user: PFUser) {
+        if (doesUserLikePost(user)) {
+            likes.value = likes.value?.filter { $0 != user }
+            ParseHelper.removeLike(self)
+        } else {
+            likes.value?.append(user)
+            ParseHelper.addLike(self)
+        }
+    }
+    
+    func fetchLikes() -> Int {
+
+        if (likes.value == nil) {
+        ParseHelper.likesForPost(self, completionBlock: { (var likes: [AnyObject]?, error: NSError?) -> Void in
+            likes = likes?.filter { like in like[ParseHelper.ParseLikeFromUser] != nil }
+            
+            self.likes.value = likes?.map { like in
+                let like = like as! PFObject
+                let fromUser = like[ParseHelper.ParseLikeFromUser] as! PFUser
+                
+                return fromUser
+            }
+        })
+        }
+        
+        if let numLikes = likes.value?.count {
+            return numLikes
+        }
+        else {
+            return 0
+        }
     }
 }

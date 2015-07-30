@@ -21,6 +21,11 @@ class ParseHelper {
     static let ParseFollowFromUser    = "fromUser"
     static let ParseFollowToUser      = "toUser"
     
+    //Like Relation
+    static let ParseLikeClass         = "Like"
+    static let ParseLikeToPost        = "toGoal"
+    static let ParseLikeFromUser      = "fromUser"
+    
     //MARK: Users
     //fetches all the users, except the ones that are currently logined in
     //also limits the amount of users returned to 20
@@ -74,29 +79,63 @@ class ParseHelper {
 
     }
     static func timelineRequestforCurrentUser(completionBlock: PFArrayResultBlock) {
-        // 1
+        
         let followingQuery = PFQuery(className: "Friend")
         followingQuery.whereKey("fromUser", equalTo:PFUser.currentUser()!)
         
-        // 2
         let postsFromFollowedUsers = Goal.query()
         postsFromFollowedUsers!.whereKey("ofUser", matchesKey: "toUser", inQuery: followingQuery)
         
-        // 3
         let postsFromThisUser = Goal.query()
         postsFromThisUser!.whereKey("ofUser", equalTo: PFUser.currentUser()!)
         
-        // 4
         let query = PFQuery.orQueryWithSubqueries([postsFromFollowedUsers!, postsFromThisUser!])
-        // 5
+        
         query.includeKey("ofUser")
-        // 6
+    
         query.orderByDescending("createdAt")
         
-        // 7
         query.findObjectsInBackgroundWithBlock(completionBlock)
 
+    }
+    static func likesForPost(goal: Goal, completionBlock: PFArrayResultBlock) {
+        let fetchLikes = PFQuery(className: ParseLikeClass)
+        fetchLikes.whereKey(ParseLikeToPost, equalTo: goal)
+        fetchLikes.includeKey(ParseLikeFromUser)
+        
+        fetchLikes.findObjectsInBackgroundWithBlock(completionBlock)
+    }
+    static func addLike(goal:Goal) {
+        
+        let currentLikes = PFObject(className: ParseLikeClass )
+        currentLikes[ParseLikeFromUser] = PFUser.currentUser()
+        currentLikes[ParseLikeToPost] = goal
+        currentLikes.save()
+    }
+    static func removeLike(goal: Goal) {
+        let currentLikes = PFQuery(className: ParseLikeClass)
+        currentLikes.whereKey(ParseLikeToPost, equalTo: goal)
+        currentLikes.whereKey(ParseLikeFromUser, equalTo: PFUser.currentUser()!)
+        
+        currentLikes.findObjectsInBackgroundWithBlock {
+            (results: [AnyObject]?, error: NSError?) -> Void in
+            
+            if let results = results as? [PFObject] {
+                for likes in results {
+                    likes.deleteInBackgroundWithBlock(nil)
+                }
+                
+            }
+            
+        }
     }
 
 }
 
+extension PFObject : Equatable {
+    
+}
+
+public func ==(lhs: PFObject, rhs: PFObject) -> Bool {
+    return lhs.objectId == rhs.objectId
+}

@@ -20,6 +20,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     @IBOutlet weak var shareableSwitch: UISwitch!
     @IBOutlet weak var floatRatingView: FloatRatingView!
     
+    
     var shareWithFriends: Bool? = true
     var popViewController : PopUpViewControllerSwift!
     var goalRating: Float? = 1
@@ -109,6 +110,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
         
     }
     @IBAction func saveButtonPressed(sender: AnyObject) {
+        
         let goal = Goal()
         goal.goalDescription = descriptionTextField!.text
         goal.title = titleTextField.text

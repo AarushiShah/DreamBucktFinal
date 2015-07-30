@@ -74,6 +74,7 @@ class GoalOverviewViewController: UIViewController, UICollectionViewDataSource, 
             displayVC.titleString = selectedGoal.title!
             displayVC.goalString = selectedGoal.goalDescription!
             displayVC.starRating = selectedGoal.starRating
+            displayVC.goal = selectedGoal
         }
     }
 

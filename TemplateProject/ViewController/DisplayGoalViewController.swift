@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import Parse
+import Bond
 
 class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
 
-
+    var likeBond: Bond<[PFUser]?>!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var accomplishButton: UIButton!
     @IBOutlet weak var whiteView: UIView!
     @IBOutlet weak var titleTF: UILabel?
     @IBOutlet weak var date: UILabel?
+    @IBOutlet weak var likesLabel: UIButton!
     @IBOutlet weak var link: UILabel?
     @IBOutlet weak var floatRatingView: FloatRatingView!
     @IBOutlet weak var goalDescription: UITextView!
@@ -24,7 +27,18 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var pageControl: UIPageControl!
     var accomplished: Bool = false
     var liked: Bool = false
+    var numOfLikes: Int = 0
     
+    var goal:Goal? {
+        didSet {
+            if let goal = goal {
+                // bind the likeBond that we defined earlier, to update like label and button when likes change
+                if let likeButton = likeButton {
+                    goal.likes ->> likeBond
+                }
+            }
+        }
+    }
     var titleString: String = ""
     var goalString: String = ""
     var linkString: String = ""
@@ -34,12 +48,42 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
     var pageImages: [UIImage] = []
     var pageViews: [UIImageView?] = []
     
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        // 1
+        likeBond = Bond<[PFUser]?>() { [unowned self] likeList in
+            // 2
+            if let likeList = likeList {
+                
+                self.likesLabel.setTitle(MethodHelper.stringFromUserList(likeList), forState: .Normal)
+ 
+                self.likeButton.selected = contains(likeList, PFUser.currentUser()!)
+                
+            } else {
+                self.likesLabel.setTitle("0", forState: .Normal)
+                self.likeButton.selected = false
+            }
+        }
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        goal!.likes ->> likeBond
         self.floatRatingView.emptyImage = UIImage(named: "Star")
         self.floatRatingView.fullImage = UIImage(named: "SelectedStar")
         self.floatRatingView.editable = false
         self.floatRatingView.rating = starRating!
+        
+        if let goal = goal {
+            numOfLikes = goal.fetchLikes()
+            self.likesLabel.setTitle("\(numOfLikes)", forState: .Normal)
+
+        }
+        else {
+            self.likesLabel.setTitle("0", forState: .Normal)
+        }
 
         whiteView.layer.cornerRadius = 5
         scrollView.layer.cornerRadius = 5
@@ -153,15 +197,7 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
         // Load the pages that are now on screen
         loadVisiblePages()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
     @IBAction func accomplishButtonTapped(sender: AnyObject) {
         
         if accomplished {
@@ -176,15 +212,8 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
     }
 
     @IBAction func likeButtonTapped(sender: AnyObject){
-        if liked {
-            likeButton.setImage(UIImage(named:"Heart"), forState: .Normal)
-            liked = false
-            
-        }
-        else {
-            likeButton.setImage(UIImage(named:"Heart Selected"), forState: .Normal)
-            liked = true
-        }
+        
+        goal?.toggleLikePost(PFUser.currentUser()!)
 
     }
     
