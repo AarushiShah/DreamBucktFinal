@@ -17,7 +17,7 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var titleTF: UILabel?
     @IBOutlet weak var date: UILabel?
     @IBOutlet weak var link: UILabel?
-    @IBOutlet weak var starRating: UIImageView!
+    @IBOutlet weak var floatRatingView: FloatRatingView!
     @IBOutlet weak var goalDescription: UITextView!
     @IBOutlet weak var background: UIImageView!
     @IBOutlet var scrollView: UIScrollView!
@@ -29,12 +29,18 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
     var goalString: String = ""
     var linkString: String = ""
     var dateString: String = ""
+    var starRating: Float? = 1
 
     var pageImages: [UIImage] = []
     var pageViews: [UIImageView?] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.floatRatingView.emptyImage = UIImage(named: "Star")
+        self.floatRatingView.fullImage = UIImage(named: "SelectedStar")
+        self.floatRatingView.editable = false
+        self.floatRatingView.rating = starRating!
+
         whiteView.layer.cornerRadius = 5
         scrollView.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
@@ -53,11 +59,11 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
         // 1
         pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
         pageControl.pageIndicatorTintColor = UIColor.grayColor()
-        pageImages = [UIImage(named: "photo1.png")!,
-            UIImage(named: "photo2.png")!,
-            UIImage(named: "photo3.png")!,
-            UIImage(named: "photo4.png")!,
-            UIImage(named: "photo5.png")!]
+        pageImages = [UIImage(named: "bucket.png")!,
+            UIImage(named: "Bucket2.png")!,
+            UIImage(named: "Bucket3.png")!,
+            UIImage(named: "Bucket4.png")!,
+            UIImage(named: "Bucket5.png")!]
         
         let pageCount = pageImages.count
         

@@ -43,6 +43,8 @@
 		4E0C2EFD1B6183A400AC45EA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0C2EFC1B6183A400AC45EA /* StoreKit.framework */; };
 		4E0C2EFF1B61845200AC45EA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C2EFE1B61845200AC45EA /* ProfileViewController.swift */; };
 		4E0C2F0D1B61AA7300AC45EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0C2F0C1B61AA7300AC45EA /* QuartzCore.framework */; };
+		4E528E601B697837007155E6 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E5F1B697837007155E6 /* GoalTableViewCell.swift */; };
+		4E528E681B698B02007155E6 /* PendingGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E671B698B02007155E6 /* PendingGoalTableViewCell.swift */; };
 		4EA399741B62B7EC00172B13 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA399731B62B7EC00172B13 /* FloatRatingView.swift */; };
 		4EFD46471B66A36500871157 /* GoalOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD46461B66A36500871157 /* GoalOverviewViewController.swift */; };
 		4EFD464F1B66A4CE00871157 /* GoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD464E1B66A4CE00871157 /* GoalCell.swift */; };
@@ -51,6 +53,11 @@
 		4EFD46551B66AD0B00871157 /* PopUpViewController_iPhone6Plus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD46521B66AD0B00871157 /* PopUpViewController_iPhone6Plus.xib */; };
 		4EFD46571B66AD4B00871157 /* PopUpViewControllerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD46561B66AD4B00871157 /* PopUpViewControllerSwift.swift */; };
 		4EFD465D1B68296E00871157 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD465C1B68296E00871157 /* User.swift */; };
+		4EFD46991B694EE300871157 /* bucket.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD46981B694EE300871157 /* bucket.png */; };
+		4EFD469B1B6950DA00871157 /* Bucket5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD469A1B6950DA00871157 /* Bucket5.png */; };
+		4EFD469F1B6950E100871157 /* Bucket4.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD469C1B6950E100871157 /* Bucket4.png */; };
+		4EFD46A01B6950E100871157 /* Bucket3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD469D1B6950E100871157 /* Bucket3.png */; };
+		4EFD46A11B6950E100871157 /* Bucket2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD469E1B6950E100871157 /* Bucket2.png */; };
 		62551B6C1B06BF6D000913E4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62551B631B06BF6D000913E4 /* Bolts.framework */; };
 		62551B6D1B06BF6D000913E4 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62551B641B06BF6D000913E4 /* FBSDKCoreKit.framework */; };
 		62551B6E1B06BF6D000913E4 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62551B651B06BF6D000913E4 /* FBSDKLoginKit.framework */; };
@@ -198,6 +205,8 @@
 		4E0C2EFC1B6183A400AC45EA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4E0C2EFE1B61845200AC45EA /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4E0C2F0C1B61AA7300AC45EA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4E528E5F1B697837007155E6 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
+		4E528E671B698B02007155E6 /* PendingGoalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingGoalTableViewCell.swift; sourceTree = "<group>"; };
 		4EA399731B62B7EC00172B13 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		4EFD46461B66A36500871157 /* GoalOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalOverviewViewController.swift; sourceTree = "<group>"; };
 		4EFD464E1B66A4CE00871157 /* GoalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalCell.swift; sourceTree = "<group>"; };
@@ -206,6 +215,11 @@
 		4EFD46521B66AD0B00871157 /* PopUpViewController_iPhone6Plus.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopUpViewController_iPhone6Plus.xib; sourceTree = "<group>"; };
 		4EFD46561B66AD4B00871157 /* PopUpViewControllerSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpViewControllerSwift.swift; sourceTree = "<group>"; };
 		4EFD465C1B68296E00871157 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4EFD46981B694EE300871157 /* bucket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bucket.png; sourceTree = "<group>"; };
+		4EFD469A1B6950DA00871157 /* Bucket5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bucket5.png; sourceTree = "<group>"; };
+		4EFD469C1B6950E100871157 /* Bucket4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bucket4.png; sourceTree = "<group>"; };
+		4EFD469D1B6950E100871157 /* Bucket3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bucket3.png; sourceTree = "<group>"; };
+		4EFD469E1B6950E100871157 /* Bucket2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bucket2.png; sourceTree = "<group>"; };
 		624262BC1B4460CB00005CE3 /* TemplateProject-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TemplateProject-Bridging-Header.h"; sourceTree = "<group>"; };
 		62551B631B06BF6D000913E4 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Frameworks/Bolts.framework; sourceTree = "<group>"; };
 		62551B641B06BF6D000913E4 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Frameworks/FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -271,7 +285,6 @@
 				4E0C2ECA1B617D5A00AC45EA /* CustomLoginViewController.swift */,
 				4EFD46561B66AD4B00871157 /* PopUpViewControllerSwift.swift */,
 				4E0C2ECB1B617D5A00AC45EA /* CustomSignUpViewController.swift */,
-				4E0C2ECC1B617D5A00AC45EA /* DisplayGoalViewController.swift */,
 				4E0C2ECD1B617D5A00AC45EA /* FriendsViewController.swift */,
 				4E0C2ECE1B617D5A00AC45EA /* ImagesViewController.swift */,
 				4E0C2ECF1B617D5A00AC45EA /* ImageViewController.swift */,
@@ -279,6 +292,7 @@
 				4E0C2ED11B617D5A00AC45EA /* ViewController.swift */,
 				4E0C2ED21B617D5A00AC45EA /* VisionboardViewController.swift */,
 				4E0C2EFE1B61845200AC45EA /* ProfileViewController.swift */,
+				4E0C2ECC1B617D5A00AC45EA /* DisplayGoalViewController.swift */,
 				4EFD46461B66A36500871157 /* GoalOverviewViewController.swift */,
 			);
 			name = ViewController;
@@ -307,6 +321,8 @@
 				4EA399731B62B7EC00172B13 /* FloatRatingView.swift */,
 				4EFD464E1B66A4CE00871157 /* GoalCell.swift */,
 				4EFD465C1B68296E00871157 /* User.swift */,
+				4E528E5F1B697837007155E6 /* GoalTableViewCell.swift */,
+				4E528E671B698B02007155E6 /* PendingGoalTableViewCell.swift */,
 			);
 			name = Models;
 			path = TemplateProject/Models;
@@ -318,6 +334,11 @@
 				4E0C2EB11B616FE300AC45EA /* AppDelegate.swift */,
 				4E0C2EAD1B616ED800AC45EA /* Main.storyboard */,
 				4E0C2EBF1B6171D600AC45EA /* photo4.png */,
+				4EFD469A1B6950DA00871157 /* Bucket5.png */,
+				4EFD46981B694EE300871157 /* bucket.png */,
+				4EFD469C1B6950E100871157 /* Bucket4.png */,
+				4EFD469D1B6950E100871157 /* Bucket3.png */,
+				4EFD469E1B6950E100871157 /* Bucket2.png */,
 				4E0C2EB91B6171BD00AC45EA /* photo1.png */,
 				624262BC1B4460CB00005CE3 /* TemplateProject-Bridging-Header.h */,
 				4E0C2EC11B6171DD00AC45EA /* photo5.png */,
@@ -560,18 +581,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EFD46A11B6950E100871157 /* Bucket2.png in Resources */,
 				4EFD46541B66AD0B00871157 /* PopUpViewController_iPhone6.xib in Resources */,
+				4EFD469F1B6950E100871157 /* Bucket4.png in Resources */,
 				4E0C2EBA1B6171BD00AC45EA /* photo1.png in Resources */,
 				4E0C2EBE1B6171D000AC45EA /* photo3.png in Resources */,
 				4E0C2EB41B616FF800AC45EA /* LaunchScreen.xib in Resources */,
 				4E0C2EC01B6171D600AC45EA /* photo4.png in Resources */,
+				4EFD46991B694EE300871157 /* bucket.png in Resources */,
 				4E0C2EB61B61700B00AC45EA /* Images.xcassets in Resources */,
 				4EFD46531B66AD0B00871157 /* PopUpViewController_iPad.xib in Resources */,
 				4EFD46551B66AD0B00871157 /* PopUpViewController_iPhone6Plus.xib in Resources */,
+				4EFD469B1B6950DA00871157 /* Bucket5.png in Resources */,
 				4E0C2EB01B616F3D00AC45EA /* Info.plist in Resources */,
 				4E0C2EAE1B616ED800AC45EA /* Main.storyboard in Resources */,
 				4E0C2EBC1B6171C500AC45EA /* photo2.png in Resources */,
 				4E0C2EC21B6171DD00AC45EA /* photo5.png in Resources */,
+				4EFD46A01B6950E100871157 /* Bucket3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,10 +616,12 @@
 				4EFD465D1B68296E00871157 /* User.swift in Sources */,
 				4EFD46571B66AD4B00871157 /* PopUpViewControllerSwift.swift in Sources */,
 				4E0C2EDC1B617D5A00AC45EA /* ViewController.swift in Sources */,
+				4E528E601B697837007155E6 /* GoalTableViewCell.swift in Sources */,
 				4E0C2EFF1B61845200AC45EA /* ProfileViewController.swift in Sources */,
 				4E0C2ED31B617D5A00AC45EA /* BucketlistViewController.swift in Sources */,
 				4EFD46471B66A36500871157 /* GoalOverviewViewController.swift in Sources */,
 				4E0C2EF41B617E6900AC45EA /* Scroll.swift in Sources */,
+				4E528E681B698B02007155E6 /* PendingGoalTableViewCell.swift in Sources */,
 				4E0C2ED81B617D5A00AC45EA /* FriendsViewController.swift in Sources */,
 				4E0C2EF51B617E6900AC45EA /* ScrollViewContainer.swift in Sources */,
 				4E0C2EF21B617E6900AC45EA /* FriendsCell.swift in Sources */,

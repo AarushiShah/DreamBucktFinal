@@ -9,6 +9,9 @@
 import UIKit
 
 class BucketlistViewController: UIViewController {
+    
+    var selectedStar: Int? = 1
+    var selectedStarString: String? = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +23,45 @@ class BucketlistViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    @IBAction func buttonOne(sender: AnyObject) {
+        selectedStar = 1
+        selectedStarString = "One Star Goals"
+        performSegueWithIdentifier("goalOverview", sender: nil)
+    }
+    @IBAction func buttonTwo(sender: AnyObject) {
+        selectedStar = 2
+         selectedStarString = "Two Star Goals"
+        performSegueWithIdentifier("goalOverview", sender: nil)
+    }
+    @IBAction func buttonThree(sender: AnyObject) {
+        selectedStar = 3
+         selectedStarString = "Three Star Goals"
+        performSegueWithIdentifier("goalOverview", sender: nil)
+    }
     
+    @IBAction func buttonFour(sender: AnyObject) {
+        selectedStar = 4
+         selectedStarString = "Four Star Goals"
+        performSegueWithIdentifier("goalOverview", sender: nil)
+    }
+    
+    @IBAction func buttonFive(sender: AnyObject) {
+        selectedStar = 5
+         selectedStarString = "Five Star Goals"
+        performSegueWithIdentifier("goalOverview", sender: nil)
+    }
+    
+    //MARK: Segues
     @IBAction func unwindToSegue(segue: UIStoryboardSegue){
         
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "goalOverview") {
+            var goalVC: GoalOverviewViewController = segue.destinationViewController as! GoalOverviewViewController
+            goalVC.displayNumber = selectedStar
+            goalVC.displayString = selectedStarString
+        }
     }
     
     

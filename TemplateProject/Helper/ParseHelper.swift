@@ -64,6 +64,39 @@ class ParseHelper {
         query.whereKey(ParseUserUsername, equalTo: user.username!)
         
     }
+    static func allPostsWithRating(starRating: Int, completionBlock: PFArrayResultBlock) {
+        let postsForUser = Goal.query()
+        postsForUser?.whereKey("ofUser", equalTo: PFUser.currentUser()!)
+        postsForUser?.whereKey("starRating", equalTo: starRating)
+        postsForUser?.limit = 20
+        postsForUser?.findObjectsInBackgroundWithBlock(completionBlock)
+        
+
+    }
+    static func timelineRequestforCurrentUser(completionBlock: PFArrayResultBlock) {
+        // 1
+        let followingQuery = PFQuery(className: "Friend")
+        followingQuery.whereKey("fromUser", equalTo:PFUser.currentUser()!)
+        
+        // 2
+        let postsFromFollowedUsers = Goal.query()
+        postsFromFollowedUsers!.whereKey("ofUser", matchesKey: "toUser", inQuery: followingQuery)
+        
+        // 3
+        let postsFromThisUser = Goal.query()
+        postsFromThisUser!.whereKey("ofUser", equalTo: PFUser.currentUser()!)
+        
+        // 4
+        let query = PFQuery.orQueryWithSubqueries([postsFromFollowedUsers!, postsFromThisUser!])
+        // 5
+        query.includeKey("ofUser")
+        // 6
+        query.orderByDescending("createdAt")
+        
+        // 7
+        query.findObjectsInBackgroundWithBlock(completionBlock)
+
+    }
 
 }
 

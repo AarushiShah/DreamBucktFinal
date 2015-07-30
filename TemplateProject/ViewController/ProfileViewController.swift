@@ -20,5 +20,8 @@ class ProfileViewController: UIViewController {
         //user.downloadImage()
         
     }
+    @IBAction func unwindToSegue(segue: UIStoryboardSegue){
+        
+    }
     
 }

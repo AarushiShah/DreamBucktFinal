@@ -22,6 +22,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     
     var shareWithFriends: Bool? = true
     var popViewController : PopUpViewControllerSwift!
+    var goalRating: Float? = 1
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -38,25 +39,26 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
         let currentDate = NSDate()
         datePicker.date = currentDate
         datePicker.minimumDate = currentDate
+        
         // Do any additional setup after loading the view.
-        self.floatRatingView.emptyImage = UIImage(named: "StarEmpty")
-        self.floatRatingView.fullImage = UIImage(named: "StarFull")
+        self.floatRatingView.emptyImage = UIImage(named: "Star")
+        self.floatRatingView.fullImage = UIImage(named: "SelectedStar")
         // Optional params
         self.floatRatingView.delegate = self
         self.floatRatingView.contentMode = UIViewContentMode.ScaleAspectFit
         self.floatRatingView.maxRating = 5
         self.floatRatingView.minRating = 1
-        self.floatRatingView.rating = 2.5
+        self.floatRatingView.rating = 1
         self.floatRatingView.editable = true
-        self.floatRatingView.halfRatings = true
+        self.floatRatingView.halfRatings = false
         self.floatRatingView.floatRatings = false
 
         descriptionTextField.layer.borderColor = UIColor.lightGrayColor().CGColor
         descriptionTextField.layer.borderWidth = 1
         
         // Labels init
-       println(NSString(format: "%.2f", self.floatRatingView.rating) as String)
-       // self.updatedLabel.text = NSString(format: "%.2f", self.floatRatingView.rating) as String
+       goalRating = self.floatRatingView.rating
+       println(goalRating)
 
     }
 
@@ -113,7 +115,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
         goal.shareable = shareWithFriends!
         goal.dateGoal = datePicker.date
         goal.externalLink = linksTextField.text
-        goal.starRating = 4
+        goal.starRating = goalRating!
         goal.uploadGoal()
     }
     func textFieldShouldReturn(textField: UITextField) ->Bool {
@@ -125,37 +127,29 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
             var displayGoal: DisplayGoalViewController = segue.destinationViewController as! DisplayGoalViewController
             displayGoal.titleString = titleTextField.text
             displayGoal.goalString = descriptionTextField!.text
+            displayGoal.starRating = goalRating
             if(dateLabel.text != "Set Goal Date") {
                 displayGoal.dateString = dateLabel.text!
             }
             displayGoal.linkString = linksTextField.text
             let dateFormat: NSDateFormatter = NSDateFormatter()
             let hello: String = dateFormat.stringFromDate(datePicker.date)
-            //displayGoal.dateString = dateFormat.stringFromDate(datePicker.date)
             displayGoal.hidesBottomBarWhenPushed = true
         }
     }
     
     func floatRatingView(ratingView: FloatRatingView, isUpdating rating:Float) {
-        println(NSString(format: "%.2f", self.floatRatingView.rating) as String)
+        goalRating = self.floatRatingView.rating
+        println(goalRating)
     }
     
     func floatRatingView(ratingView: FloatRatingView, didUpdate rating: Float) {
-        println( NSString(format: "%.2f", self.floatRatingView.rating) as String)
+        goalRating = self.floatRatingView.rating
+        println(goalRating)
     }
     func setDate(newDate: String) {
         dateLabel.text = newDate
         
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

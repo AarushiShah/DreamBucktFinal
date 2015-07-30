@@ -14,10 +14,13 @@ class Goal: PFObject, PFSubclassing{
     @NSManaged var title: String?
     @NSManaged var goalDescription: String?
     @NSManaged var externalLink: String?
-    @NSManaged var starRating: Int
+    @NSManaged var starRating: Float
     @NSManaged var dateGoal: NSDate?
     @NSManaged var shareable: Bool
     @NSManaged var ofUser: PFUser?
+    @NSManaged var imageFile: PFFile?
+    
+    var image:UIImage?
     
    
     static func parseClassName() -> String {
