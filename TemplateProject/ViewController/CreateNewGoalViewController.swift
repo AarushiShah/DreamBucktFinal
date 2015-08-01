@@ -60,7 +60,15 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
         // Labels init
        goalRating = self.floatRatingView.rating
        println(goalRating)
+        
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        view.addGestureRecognizer(tap)
 
+    }
+    
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,6 +126,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
         goal.dateGoal = datePicker.date
         goal.externalLink = linksTextField.text
         goal.starRating = goalRating!
+        goal.accomplished = false
         goal.uploadGoal()
     }
     func textFieldShouldReturn(textField: UITextField) ->Bool {

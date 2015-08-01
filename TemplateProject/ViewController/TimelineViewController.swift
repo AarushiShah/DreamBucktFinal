@@ -16,7 +16,7 @@ class TimelineViewController: UIViewController {
     var users: [PFUser] = []
     var numOfLikes: Int = 0
     var cellTapped:Bool = true
-    var currentRow = 0;
+    var currentRow = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,10 +79,16 @@ extension TimelineViewController: UITableViewDataSource {
             cell.floatRatingView.rating = goals[indexPath.row].starRating
             cell.goal = goals[indexPath.row]
            numOfLikes = goals[indexPath.row].fetchLikes()
+           cell.commentButton.selectCom = indexPath.row
            cell.likesLabel.text = "\(numOfLikes)"
+        
+        
+        
             return cell
         }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+         let cell = tableView.dequeueReusableCellWithIdentifier("GoalCell") as! GoalTableViewCell
+        
         if indexPath.row == currentRow {
             if cellTapped == false {
                 cellTapped = true
@@ -95,4 +101,12 @@ extension TimelineViewController: UITableViewDataSource {
         return 70
       }
     }
+
+extension TimelineViewController: UITableViewDelegate {
+
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+}
 

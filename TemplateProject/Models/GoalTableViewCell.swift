@@ -16,12 +16,14 @@ class GoalTableViewCell: UITableViewCell {
     var numOfLikes: Int = 0
     var likeBond: Bond<[PFUser]?>!
 
+    @IBOutlet weak var commentView: UIView!
     @IBOutlet weak var goalImageView: UIImageView!
     @IBOutlet weak var accomplishedTitle: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var titleLable: UILabel!
     @IBOutlet weak var likesLabel: UILabel!
     @IBOutlet weak var floatRatingView: FloatRatingView!
+    @IBOutlet weak var commentButton: CommentButton!
     
     var goal:Goal? {
         didSet {

@@ -20,6 +20,7 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
     var isSearchOn = false
     var searchResults = [String]()
     var selecteduser: PFUser!
+    var listOfFriends = [AnyObject]()
     
     // stores all the users that match the current search query
       override func viewDidLoad() {
@@ -40,6 +41,10 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
             if let error = error {
                 ErrorHandling.defaultErrorHandler(error)
             }
+        }
+        ParseHelper.getFriendsForUser(PFUser.currentUser()!) {
+            (results: [AnyObject]?, error: NSError?) -> Void in
+                self.listOfFriends = results!
         }
     }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

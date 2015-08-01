@@ -45,6 +45,8 @@
 		4E0C2F0D1B61AA7300AC45EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0C2F0C1B61AA7300AC45EA /* QuartzCore.framework */; };
 		4E528E601B697837007155E6 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E5F1B697837007155E6 /* GoalTableViewCell.swift */; };
 		4E528E6C1B6ADF3E007155E6 /* MethodHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E6B1B6ADF3E007155E6 /* MethodHelper.swift */; };
+		4E528E6E1B6AE83D007155E6 /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E6D1B6AE83D007155E6 /* CommentButton.swift */; };
+		4E528E701B6BDCA5007155E6 /* AccomplishedGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E6F1B6BDCA5007155E6 /* AccomplishedGoalViewController.swift */; };
 		4EA399741B62B7EC00172B13 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA399731B62B7EC00172B13 /* FloatRatingView.swift */; };
 		4EFD46471B66A36500871157 /* GoalOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD46461B66A36500871157 /* GoalOverviewViewController.swift */; };
 		4EFD464F1B66A4CE00871157 /* GoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD464E1B66A4CE00871157 /* GoalCell.swift */; };
@@ -207,6 +209,8 @@
 		4E0C2F0C1B61AA7300AC45EA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4E528E5F1B697837007155E6 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
 		4E528E6B1B6ADF3E007155E6 /* MethodHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MethodHelper.swift; sourceTree = "<group>"; };
+		4E528E6D1B6AE83D007155E6 /* CommentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentButton.swift; path = ../../CommentButton.swift; sourceTree = "<group>"; };
+		4E528E6F1B6BDCA5007155E6 /* AccomplishedGoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccomplishedGoalViewController.swift; sourceTree = "<group>"; };
 		4EA399731B62B7EC00172B13 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		4EFD46461B66A36500871157 /* GoalOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalOverviewViewController.swift; sourceTree = "<group>"; };
 		4EFD464E1B66A4CE00871157 /* GoalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalCell.swift; sourceTree = "<group>"; };
@@ -294,6 +298,7 @@
 				4E0C2EFE1B61845200AC45EA /* ProfileViewController.swift */,
 				4E0C2ECC1B617D5A00AC45EA /* DisplayGoalViewController.swift */,
 				4EFD46461B66A36500871157 /* GoalOverviewViewController.swift */,
+				4E528E6F1B6BDCA5007155E6 /* AccomplishedGoalViewController.swift */,
 			);
 			name = ViewController;
 			path = TemplateProject/ViewController;
@@ -314,6 +319,7 @@
 		4E0C2EEB1B617E6900AC45EA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4E528E6D1B6AE83D007155E6 /* CommentButton.swift */,
 				4E0C2EEC1B617E6900AC45EA /* ColorWheel.swift */,
 				4E0C2EED1B617E6900AC45EA /* FriendsCell.swift */,
 				4E0C2EEE1B617E6900AC45EA /* Goal.swift */,
@@ -486,6 +492,7 @@
 				TargetAttributes = {
 					62C8C1DF1B06BD6500DC3EA7 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 2U2GV9LKTA;
 					};
 				};
 			};
@@ -608,6 +615,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E528E701B6BDCA5007155E6 /* AccomplishedGoalViewController.swift in Sources */,
 				4E0C2EE91B617E1300AC45EA /* ParseHelper.swift in Sources */,
 				4E0C2ED71B617D5A00AC45EA /* DisplayGoalViewController.swift in Sources */,
 				4E0C2ED61B617D5A00AC45EA /* CustomSignUpViewController.swift in Sources */,
@@ -629,6 +637,7 @@
 				4E0C2EEA1B617E1300AC45EA /* ParseLoginHelper.swift in Sources */,
 				4E0C2ED91B617D5A00AC45EA /* ImagesViewController.swift in Sources */,
 				4E0C2EF31B617E6900AC45EA /* Goal.swift in Sources */,
+				4E528E6E1B6AE83D007155E6 /* CommentButton.swift in Sources */,
 				4E0C2EF11B617E6900AC45EA /* ColorWheel.swift in Sources */,
 				4E0C2EDD1B617D5A00AC45EA /* VisionboardViewController.swift in Sources */,
 				4E0C2ED51B617D5A00AC45EA /* CustomLoginViewController.swift in Sources */,
@@ -742,14 +751,15 @@
 		62C8C2001B06BD6500DC3EA7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/ConvenienceKit/ConvenienceKit/Frameworks",
 				);
 				INFOPLIST_FILE = TemplateProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = TemplateProject;
@@ -761,14 +771,15 @@
 		62C8C2011B06BD6500DC3EA7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Frameworks/ConvenienceKit/ConvenienceKit/Frameworks",
 				);
 				INFOPLIST_FILE = TemplateProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = TemplateProject;

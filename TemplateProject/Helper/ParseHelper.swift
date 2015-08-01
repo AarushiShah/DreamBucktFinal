@@ -50,9 +50,29 @@ class ParseHelper {
         query.findObjectsInBackgroundWithBlock(completionBlock)
         return query
     }
+    //MARK: IMAGES
+    static func uploadPictures(goal:Goal, images: [UIImage]) {
+//        let goalObject = PFObject(className: "Goal" )
+//       // goalObject.whereKey("objectId", equalTo: goal.objectId!)
+//        
+//        let finalImageArray:[PFFile]
+//        for eachimage in images {
+//            var file = PFFile(data: UIImageJPEGRepresentation(eachimage, 1.0))
+//            finalImageArray.append(file)
+//        }
+//        goalObject["imageFileArray"] = finalImageArray
+//        goalObject.save()
+    }
+    static func getImages(goal: Goal, completionBlock: PFArrayResultBlock) {
+        let goalQuery = Goal.query()
+        goalQuery?.whereKey("objectId", equalTo: goal.objectId!)
+        goalQuery?.findObjectsInBackgroundWithBlock(completionBlock)
+        
+        
+    }
     static func getFriendsForUser(user:PFUser, completionBlock: PFArrayResultBlock ){
         
-        let query = PFUser.query()!
+        let query = PFQuery(className: "Friend")
         query.whereKey(ParseUserUsername, equalTo: PFUser.currentUser()!.username!)
         query.includeKey(ParseFriendsArray)
         query.findObjectsInBackgroundWithBlock(completionBlock)

@@ -28,7 +28,6 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
     var accomplished: Bool = false
     var liked: Bool = false
     var numOfLikes: Int = 0
-    
     var goal:Goal? {
         didSet {
             if let goal = goal {
@@ -70,7 +69,27 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        goal!.likes ->> likeBond
+       // goal!.likes ->> likeBond
+        
+        if (goal?.accomplished == true) {
+            accomplishButton.setImage(UIImage(named:"Accomplished"), forState: .Normal)
+            accomplished = true
+            accomplishButton.userInteractionEnabled = false
+            ParseHelper.getImages(goal!) {
+              (result: [AnyObject]?, error: NSError?) -> Void in
+                    println(result?.count)
+                }
+            
+        } else {
+            pageImages = [UIImage(named: "bucket.png")!,
+                UIImage(named: "Bucket2.png")!,
+                UIImage(named: "Bucket3.png")!,
+                UIImage(named: "Bucket4.png")!,
+                UIImage(named: "Bucket5.png")!]
+
+        }
+        goalDescription.userInteractionEnabled = false
+        
         self.floatRatingView.emptyImage = UIImage(named: "Star")
         self.floatRatingView.fullImage = UIImage(named: "SelectedStar")
         self.floatRatingView.editable = false
@@ -103,11 +122,6 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
         // 1
         pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
         pageControl.pageIndicatorTintColor = UIColor.grayColor()
-        pageImages = [UIImage(named: "bucket.png")!,
-            UIImage(named: "Bucket2.png")!,
-            UIImage(named: "Bucket3.png")!,
-            UIImage(named: "Bucket4.png")!,
-            UIImage(named: "Bucket5.png")!]
         
         let pageCount = pageImages.count
         
@@ -203,11 +217,22 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
         if accomplished {
             accomplishButton.setImage(UIImage(named:"Pending"), forState: .Normal)
             accomplished = false
+             goal?.updateAccomplish(false)
 
         }
         else {
             accomplishButton.setImage(UIImage(named:"Accomplished"), forState: .Normal)
             accomplished = true
+            accomplishButton.userInteractionEnabled = false
+            performSegueWithIdentifier("Accomplished", sender: self)
+            goal?.updateAccomplish(true)
+        }
+    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "Accomplished") {
+            
+            var accomplishedGoal: AccomplishedGoalViewController = segue.destinationViewController as! AccomplishedGoalViewController
+            accomplishedGoal.goal = self.goal
         }
     }
 
