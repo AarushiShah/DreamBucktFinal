@@ -48,6 +48,7 @@
 		4E528E6E1B6AE83D007155E6 /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E6D1B6AE83D007155E6 /* CommentButton.swift */; };
 		4E528E701B6BDCA5007155E6 /* AccomplishedGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E6F1B6BDCA5007155E6 /* AccomplishedGoalViewController.swift */; };
 		4EA399741B62B7EC00172B13 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA399731B62B7EC00172B13 /* FloatRatingView.swift */; };
+		4EAECDB01B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAECDAF1B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift */; };
 		4EFD46471B66A36500871157 /* GoalOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD46461B66A36500871157 /* GoalOverviewViewController.swift */; };
 		4EFD464F1B66A4CE00871157 /* GoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD464E1B66A4CE00871157 /* GoalCell.swift */; };
 		4EFD46531B66AD0B00871157 /* PopUpViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD46501B66AD0B00871157 /* PopUpViewController_iPad.xib */; };
@@ -212,6 +213,7 @@
 		4E528E6D1B6AE83D007155E6 /* CommentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentButton.swift; path = ../../CommentButton.swift; sourceTree = "<group>"; };
 		4E528E6F1B6BDCA5007155E6 /* AccomplishedGoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccomplishedGoalViewController.swift; sourceTree = "<group>"; };
 		4EA399731B62B7EC00172B13 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
+		4EAECDAF1B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersFriendsTableViewCell.swift; sourceTree = "<group>"; };
 		4EFD46461B66A36500871157 /* GoalOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalOverviewViewController.swift; sourceTree = "<group>"; };
 		4EFD464E1B66A4CE00871157 /* GoalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalCell.swift; sourceTree = "<group>"; };
 		4EFD46501B66AD0B00871157 /* PopUpViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopUpViewController_iPad.xib; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				4EFD464E1B66A4CE00871157 /* GoalCell.swift */,
 				4EFD465C1B68296E00871157 /* User.swift */,
 				4E528E5F1B697837007155E6 /* GoalTableViewCell.swift */,
+				4EAECDAF1B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift */,
 			);
 			name = Models;
 			path = TemplateProject/Models;
@@ -641,6 +644,7 @@
 				4E0C2EF11B617E6900AC45EA /* ColorWheel.swift in Sources */,
 				4E0C2EDD1B617D5A00AC45EA /* VisionboardViewController.swift in Sources */,
 				4E0C2ED51B617D5A00AC45EA /* CustomLoginViewController.swift in Sources */,
+				4EAECDB01B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift in Sources */,
 				4E0C2EE81B617E1300AC45EA /* ErrorHandling.swift in Sources */,
 				4EA399741B62B7EC00172B13 /* FloatRatingView.swift in Sources */,
 				4E0C2EB21B616FE300AC45EA /* AppDelegate.swift in Sources */,

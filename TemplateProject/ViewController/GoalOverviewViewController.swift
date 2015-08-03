@@ -20,6 +20,7 @@ class GoalOverviewViewController: UIViewController, UICollectionViewDataSource, 
     var selectedGoal = Goal()
     var displayNumber: Int? = 1
     var displayString: String? = ""
+    var passOnImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +57,22 @@ class GoalOverviewViewController: UIViewController, UICollectionViewDataSource, 
         
         let cell: GoalCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! GoalCell
         cell.lblCell.text = tableData[indexPath.row]
-        cell.imgCell.image = UIImage(named: tableImages[indexPath.row])
+        println(goalArray[indexPath.row].imageFile)
+        let image = goalArray[indexPath.row].imageFile
+        if (image != nil) {
+            image!.getDataInBackgroundWithBlock{
+                (imageData: NSData?, error:NSError?) -> Void in
+                if (error == nil) {
+                    let imageUI = UIImage(data:imageData!)
+                   cell.imgCell.image = imageUI
+                   self.passOnImage = imageUI
+                }
+            }
+            
+
+        } else {
+            cell.imgCell.image = UIImage(named: tableImages[indexPath.row])
+        }
         
         return cell
     }
@@ -75,7 +91,8 @@ class GoalOverviewViewController: UIViewController, UICollectionViewDataSource, 
             displayVC.goalString = selectedGoal.goalDescription!
             displayVC.starRating = selectedGoal.starRating
             displayVC.goal = selectedGoal
+            displayVC.singleImage = passOnImage!
+            
         }
     }
-
 }

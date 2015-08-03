@@ -46,6 +46,7 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
 
     var pageImages: [UIImage] = []
     var pageViews: [UIImageView?] = []
+    var singleImage: UIImage = UIImage()
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -81,11 +82,10 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
                 }
             
         } else {
-            pageImages = [UIImage(named: "bucket.png")!,
-                UIImage(named: "Bucket2.png")!,
-                UIImage(named: "Bucket3.png")!,
-                UIImage(named: "Bucket4.png")!,
-                UIImage(named: "Bucket5.png")!]
+            if (singleImage != UIImage()) {
+                pageImages.append(singleImage)
+            }
+           
 
         }
         goalDescription.userInteractionEnabled = false

@@ -46,6 +46,19 @@ class Goal: PFObject, PFSubclassing{
     }
     
     func uploadGoal () {
+        
+        let imageData = UIImageJPEGRepresentation(image, 0.8)
+        imageFile = PFFile(data:imageData)
+        photoUploadTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler{ () -> Void in
+            
+            UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
+        }
+        
+        imageFile!.saveInBackgroundWithBlock { (succes: Bool, error: NSError?) -> Void in
+            UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
+        }
+        
+
         ofUser = PFUser.currentUser()
         saveInBackgroundWithBlock{ (success: Bool, error: NSError?) -> Void in
             println("save succesfully")

@@ -73,8 +73,8 @@ class ParseHelper {
     static func getFriendsForUser(user:PFUser, completionBlock: PFArrayResultBlock ){
         
         let query = PFQuery(className: "Friend")
-        query.whereKey(ParseUserUsername, equalTo: PFUser.currentUser()!.username!)
-        query.includeKey(ParseFriendsArray)
+        query.whereKey(ParseFollowFromUser, equalTo: user)
+        //query.includeKey(ParseFriendsArray)
         query.findObjectsInBackgroundWithBlock(completionBlock)
     }
     static func addFriendRelationshipFromUser(user: PFUser, toUser: PFUser) {
@@ -83,10 +83,37 @@ class ParseHelper {
         friendObject.setObject(toUser, forKey: ParseFollowToUser)
         friendObject.saveInBackgroundWithBlock(nil)
     }
+    
+    static func removeFollowRelationshipFromUser(user: PFUser, toUser: PFUser) {
+        
+        let query = PFQuery(className: ParseFollowClass)
+        query.whereKey(ParseFollowFromUser, equalTo: user)
+        query.whereKey(ParseFollowToUser, equalTo: toUser)
+        
+        query.findObjectsInBackgroundWithBlock {
+            (results: [AnyObject]?, error: NSError?) -> Void in
+            
+            let results = results as? [PFObject] ?? []
+            
+            for follow in results {
+                follow.deleteInBackgroundWithBlock(nil)
+            }
+        }
+        
+    }
+
+    
     static func getProfileImage(user: PFUser) {
         
-        let query = PFUser.query()!
-        query.whereKey(ParseUserUsername, equalTo: user.username!)
+        let userPhoto = PFObject(className: "User")
+        let userImageFile = userPhoto["profileImage"] as! PFFile
+        userImageFile.getDataInBackgroundWithBlock {
+            (imageData: NSData?, error: NSError?) -> Void in
+            if !(error != nil) {
+                let image = UIImage(data:imageData!)
+                println(image)
+            }
+        }
         
     }
     static func allPostsWithRating(starRating: Int, completionBlock: PFArrayResultBlock) {
@@ -114,6 +141,7 @@ class ParseHelper {
         query.includeKey("ofUser")
     
         query.orderByDescending("createdAt")
+ 
         
         query.findObjectsInBackgroundWithBlock(completionBlock)
 
@@ -148,6 +176,13 @@ class ParseHelper {
             }
             
         }
+    }
+    
+    static func isAFriend(user1:PFUser, user2: PFUser, completionBlock: PFArrayResultBlock) {
+        let friendQuery = PFQuery(className: ParseFollowClass)
+        friendQuery.whereKey(ParseFollowFromUser, equalTo: user1)
+        friendQuery.whereKey(ParseFollowToUser, equalTo: user2)
+        friendQuery.findObjectsInBackgroundWithBlock(completionBlock)
     }
 
 }

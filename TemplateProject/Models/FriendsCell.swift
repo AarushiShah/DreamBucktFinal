@@ -27,6 +27,8 @@ class FriendsCell: UICollectionViewCell {
             
             if friend {
                 friendButton.setImage(UIImage(named:"Friend Add"), forState: .Normal)
+                ParseHelper.removeFollowRelationshipFromUser(PFUser.currentUser()!, toUser: user!)
+                ParseHelper.removeFollowRelationshipFromUser(user!, toUser: PFUser.currentUser()!)
                 friend = false
                 
             }

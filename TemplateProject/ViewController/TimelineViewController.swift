@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 class TimelineViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     var goals: [Goal] = []
     var users: [PFUser] = []
@@ -42,17 +42,17 @@ class TimelineViewController: UIViewController {
             }
             self.tableView.reloadData()
         }
-     }
+    }
     @IBAction func commentButtonTapped(sender: AnyObject) {
         
-       // var selectedRowIndex = indexPath
-       // currentRow = selectedRowIndex.row
+        // var selectedRowIndex = indexPath
+        // currentRow = selectedRowIndex.row
         
         tableView.beginUpdates()
         tableView.endUpdates()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -67,43 +67,45 @@ extension TimelineViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-            let cell = tableView.dequeueReusableCellWithIdentifier("GoalCell") as! GoalTableViewCell
-            
-            cell.goalImageView.image = goals[indexPath.row].image
-            cell.titleLable?.text = goals[indexPath.row].title
-            let username = users[indexPath.row].username
-            cell.accomplishedTitle.text = ("\(username) Accomplished a Goal")
-            cell.floatRatingView.emptyImage = UIImage(named: "Star")
-            cell.floatRatingView.fullImage = UIImage(named: "SelectedStar")
-            cell.floatRatingView.editable = false
-            cell.floatRatingView.rating = goals[indexPath.row].starRating
-            cell.goal = goals[indexPath.row]
-           numOfLikes = goals[indexPath.row].fetchLikes()
-           cell.commentButton.selectCom = indexPath.row
-           cell.likesLabel.text = "\(numOfLikes)"
+        let cell = tableView.dequeueReusableCellWithIdentifier("GoalCell") as! GoalTableViewCell
+        
+        cell.goalImageView.image = goals[indexPath.row].image
+        cell.titleLable?.text = goals[indexPath.row].title
+        let username = users[indexPath.row].username
+        cell.accomplishedTitle.text = ("\(username) Accomplished a Goal")
+        cell.floatRatingView.emptyImage = UIImage(named: "Star")
+        cell.floatRatingView.fullImage = UIImage(named: "SelectedStar")
+        cell.floatRatingView.editable = false
+        cell.floatRatingView.rating = goals[indexPath.row].starRating
+        cell.goal = goals[indexPath.row]
+        numOfLikes = goals[indexPath.row].fetchLikes()
+        cell.commentButton.selectCom = indexPath.row
+        cell.likesLabel.text = "\(numOfLikes)"
         
         
         
-            return cell
-        }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-         let cell = tableView.dequeueReusableCellWithIdentifier("GoalCell") as! GoalTableViewCell
-        
-        if indexPath.row == currentRow {
-            if cellTapped == false {
-                cellTapped = true
-                return 141
-            } else {
-                cellTapped = false
-                return 70
-            }
-        }
-        return 70
-      }
+        return cell
     }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let cell = tableView.dequeueReusableCellWithIdentifier("GoalCell") as! GoalTableViewCell
+//        
+//        if indexPath.row == currentRow {
+//            if cellTapped == false {
+//                cellTapped = true
+//                return 141
+//            } else {
+//                cellTapped = false
+//                return 70
+//            }
+//        }
+//        return 70
+//    }
+        return 320
+    }
+}
 
 extension TimelineViewController: UITableViewDelegate {
-
+    
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }

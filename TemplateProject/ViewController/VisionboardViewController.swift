@@ -10,32 +10,49 @@ import UIKit
 import Parse
 
 class VisionboardViewController: UIViewController {
-    
-   // @IBOutlet weak var button1: UIButton!
-   // @IBOutlet weak var textButton: UIButton!
-   // @IBOutlet weak var imageView: UIImageView!
-    
+
     var photoTakingHelper:PhotoTakingHelper?
     var textBox: UITextField?
     var collagePictures: [UIImageView] = []
     var collageTextBoxes: [UITextField] = []
+  //  var collageObjects: [AnyObject] = []
+    @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var paint: UIBarButtonItem!
     
     
     @IBOutlet weak var colorWheel: ColorWheel!
-    var numberClicked: Int = 1
+    var numberClicked: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         colorWheel.hidden = true
-    }
+        colorWheel.userInteractionEnabled = true
+        colorWheel.multipleTouchEnabled = true
+        
+        let dragRec = UIPanGestureRecognizer()
+        dragRec.addTarget(self, action: "draggedView:")
+        colorWheel.addGestureRecognizer(dragRec)
 
+
+        
+        var tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        view.addGestureRecognizer(tap)
+        
+
+    }
+    
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+        colorWheel.hidden = true
+        numberClicked++
+    }
     @IBAction func paintButton(sender: AnyObject){
         if numberClicked % 2 == 0 {
-            colorWheel.hidden = true
-        } else {
             colorWheel.hidden = false
+        } else {
+            colorWheel.hidden = true
         }
         numberClicked++
     }
@@ -60,9 +77,18 @@ class VisionboardViewController: UIViewController {
             self.view!.bringSubviewToFront(imageViewObject!)
             
             self.collagePictures.append(imageViewObject!)
+           // self.collageObjects.append(imageViewObject!)
+
         }
         
 
+    }
+    @IBAction func trashButtonClicked(sender: AnyObject) {
+        if (collagePictures.count != 0) {
+           collagePictures[collagePictures.count - 1].hidden = true
+           collagePictures.removeLast()
+        }
+        
     }
     @IBAction func takeScreenShot(sender: AnyObject) {
         var screenshot = takeScreenshot(self.view!) // change for the imageView
@@ -73,14 +99,17 @@ class VisionboardViewController: UIViewController {
         alert.message = "Collage saved to Photo Library!"
         alert.addButtonWithTitle("Ok")
         alert.show()
+        toolbar.hidden = false
     }
     
     func takeScreenshot(currentView: UIView) -> UIImage{
+        toolbar.hidden = true
         UIGraphicsBeginImageContextWithOptions(currentView.bounds.size, true, 0.0)
         currentView.drawViewHierarchyInRect(currentView.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
+
     }
     @IBAction func addTextField(sender: AnyObject) {
         var textBoxObject:UITextField?
@@ -90,6 +119,8 @@ class VisionboardViewController: UIViewController {
         self.view!.addSubview(textBoxObject!)
         // textBoxObject!.delegate = self
         self.collageTextBoxes.append(textBoxObject!)
+       // self.collageObjects.append(textBoxObject!)
+
     }
 
     func draggedView(recognizer:UIPanGestureRecognizer){
@@ -142,12 +173,6 @@ class VisionboardViewController: UIViewController {
         object.addGestureRecognizer(rotateRec)
         object.addGestureRecognizer(tapRec)
     }
-    
-    func textFieldShouldReturn(textField: UITextField!) -> Bool  {
-        textField.resignFirstResponder()
-        return true
-    }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

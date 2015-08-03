@@ -12,18 +12,17 @@ import QuartzCore
 class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRatingViewDelegate {
 
     @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var descriptionTextField: UITextView!
     @IBOutlet weak var linksTextField: UITextField!
     @IBOutlet weak var setGoalDate: UIButton!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var shareableSwitch: UISwitch!
     @IBOutlet weak var floatRatingView: FloatRatingView!
-    
-    
-    var shareWithFriends: Bool? = true
+
     var popViewController : PopUpViewControllerSwift!
     var goalRating: Float? = 1
+    var photoTakingHelper:PhotoTakingHelper?
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -35,6 +34,12 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tapRec = UITapGestureRecognizer()
+        tapRec.addTarget(self, action: "tappedView:")
+        imageView.addGestureRecognizer(tapRec)
+        imageView.userInteractionEnabled = true
+
         titleTextField.delegate = self
         linksTextField.delegate = self
         let currentDate = NSDate()
@@ -108,25 +113,26 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
 
         
     }
-    @IBAction func shareableSwitched(sender: AnyObject) {
-        if shareableSwitch.on {
-            shareWithFriends = true
-        }
-        else {
-            shareWithFriends = false
-        }
-        
-    }
+//    @IBAction func shareableSwitched(sender: AnyObject) {
+//        if shareableSwitch.on {
+//            shareWithFriends = true
+//        }
+//        else {
+//            shareWithFriends = false
+//        }
+//        
+//    }
     @IBAction func saveButtonPressed(sender: AnyObject) {
         
         let goal = Goal()
         goal.goalDescription = descriptionTextField!.text
         goal.title = titleTextField.text
-        goal.shareable = shareWithFriends!
+        goal.shareable = true
         goal.dateGoal = datePicker.date
         goal.externalLink = linksTextField.text
         goal.starRating = goalRating!
         goal.accomplished = false
+        goal.image = imageView.image
         goal.uploadGoal()
     }
     func textFieldShouldReturn(textField: UITextField) ->Bool {
@@ -143,6 +149,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
                 displayGoal.dateString = dateLabel.text!
             }
             displayGoal.linkString = linksTextField.text
+            displayGoal.singleImage = imageView.image!
             let dateFormat: NSDateFormatter = NSDateFormatter()
             let hello: String = dateFormat.stringFromDate(datePicker.date)
             displayGoal.hidesBottomBarWhenPushed = true
@@ -160,6 +167,13 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     }
     func setDate(newDate: String) {
         dateLabel.text = newDate
+        
+    }
+    func tappedView(sender:UITapGestureRecognizer) {
+        photoTakingHelper = PhotoTakingHelper(viewController: self) { (image: UIImage?) in
+            
+            self.imageView.image = image
+         }
         
     }
 

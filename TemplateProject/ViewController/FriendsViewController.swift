@@ -15,12 +15,13 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet var collectionView: UICollectionView!
     var tableData = [String]()
     var userArray = [PFUser]()
-    var tableImages: [String] = ["photo1.png", "photo2.png", "photo3.png","photo1.png", "photo2.png", "photo3.png","photo1.png", "photo2.png", "photo3.png","photo1.png", "photo2.png", "photo3.png"]
+    var tableImages = [UIImage]()
    
     var isSearchOn = false
     var searchResults = [String]()
     var selecteduser: PFUser!
     var listOfFriends = [AnyObject]()
+    var selectedimage = UIImage?()
     
     // stores all the users that match the current search query
       override func viewDidLoad() {
@@ -33,7 +34,21 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
             for eachuser in user {
                 name = eachuser.username!
                 var image: AnyObject? = eachuser["profileImage"]
-                println(name)
+                if (image != nil) {
+                    let data = image!.getData()
+                
+                        if (data != nil) {
+                                var profileImage = UIImage(data: data!, scale:1.0)
+                                self.tableImages.append(profileImage!)
+                        } else {
+                                self.tableImages.append(UIImage(named: "photo3.png")!)
+                        }
+                } else {
+                    self.tableImages.append(UIImage(named: "photo3.png")!)
+                }
+                
+
+                
                 self.tableData.append(name)
                 self.collectionView!.reloadData()
             }
@@ -42,10 +57,7 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
                 ErrorHandling.defaultErrorHandler(error)
             }
         }
-        ParseHelper.getFriendsForUser(PFUser.currentUser()!) {
-            (results: [AnyObject]?, error: NSError?) -> Void in
-                self.listOfFriends = results!
-        }
+        
     }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isSearchOn == true && !searchResults.isEmpty {
@@ -65,8 +77,18 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
             userName = tableData[indexPath.item]
         }
         
+        ParseHelper.isAFriend(userArray[indexPath.item], user2: PFUser.currentUser()!) {
+            
+            (results: [AnyObject]?,error: NSError?) -> Void in
+            if (results?.count != 0) {
+                cell.friendButton.setImage(UIImage(named:"Friend"), forState: .Normal)
+            } else {
+                cell.friendButton.setImage(UIImage(named:"Friend Add"), forState: .Normal)
+            }
+        }
+
         cell.lblCell.text = userName
-        cell.imgCell.image = UIImage(named: tableImages[indexPath.row])
+        cell.imgCell.image = tableImages[indexPath.row]
         cell.imgCell.layer.borderWidth = 1.0
         cell.imgCell.layer.masksToBounds = false
         cell.imgCell.layer.borderColor = UIColor.whiteColor().CGColor
@@ -74,19 +96,20 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
         cell.imgCell.layer.cornerRadius = 35
         cell.user = userArray[indexPath.item]
         
-        
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         selecteduser = userArray[indexPath.item]
+        selectedimage = tableImages[indexPath.item]
         performSegueWithIdentifier("profile", sender: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var profileVC: ProfileViewController = segue.destinationViewController as! ProfileViewController
         profileVC.user = selecteduser
+        profileVC.profileImage = selectedimage
     }
     
     //MARK: Search Bar Delegate
@@ -124,15 +147,7 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
                 searchResults.append(imageFileName)
             }
         }
-       // println(searchResults)
     }
-
-    // MARK: Update userlist
-    
-    /**
-    Is called as the completion block of all queries.
-    As soon as a query completes, this method updates the Table View.
-    */
     
     
     override func didReceiveMemoryWarning() {
