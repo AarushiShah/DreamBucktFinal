@@ -11,9 +11,11 @@ import UIKit
 class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet weak var shareableSwitch: UISwitch!
     
     var goal: Goal?
     var photoTakingHelper:PhotoTakingHelper?
+    var shareWithFriends = true
 
     @IBOutlet var pageControl: UIPageControl!
     var pageImages: [UIImage] = []
@@ -28,6 +30,15 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
 
 
     }
+        @IBAction func shareableSwitched(sender: AnyObject) {
+            if shareableSwitch.on {
+                shareWithFriends = true
+            }
+            else {
+                shareWithFriends = false
+            }
+            
+        }
     func reloadScrollView() {
         
         let pageCount = pageImages.count
@@ -151,6 +162,7 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func unwindToSegue(segue: UIStoryboardSegue){
         goal?.uploadImages(pageImages)
         ParseHelper.uploadPictures(goal!, images: pageImages)
+       goal!.updateShareable(shareWithFriends)
     }
     
 

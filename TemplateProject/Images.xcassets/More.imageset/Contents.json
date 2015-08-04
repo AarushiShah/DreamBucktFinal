@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "imgres-1.jpg"
+      "filename" : "more@1x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "imgres-1-1.jpg"
+      "filename" : "more@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "imgres-1-2.jpg"
+      "filename" : "more@3x.png"
     }
   ],
   "info" : {

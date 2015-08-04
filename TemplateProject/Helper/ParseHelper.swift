@@ -26,6 +26,13 @@ class ParseHelper {
     static let ParseLikeToPost        = "toGoal"
     static let ParseLikeFromUser      = "fromUser"
     
+    //Flag Relation
+    static let ParseFlagClass         = "Flag"
+    static let ParseFlagToPost        = "toGoal"
+    static let ParseFlagFromUser      = "fromUser"
+    static let ParseFlageMessage      = "message"
+
+    
     //MARK: Users
     //fetches all the users, except the ones that are currently logined in
     //also limits the amount of users returned to 20
@@ -184,7 +191,15 @@ class ParseHelper {
         friendQuery.whereKey(ParseFollowToUser, equalTo: user2)
         friendQuery.findObjectsInBackgroundWithBlock(completionBlock)
     }
-
+    static func addFlag(goal: Goal, user: PFUser, message: String) {
+        
+        let flagObject = PFObject(className: ParseFlagClass)
+        flagObject.setObject(user, forKey: ParseFlagFromUser)
+        flagObject.setObject(goal, forKey: ParseFlagToPost)
+        flagObject.setObject(message, forKey: ParseFlageMessage)
+        flagObject.saveInBackgroundWithBlock(nil)
+    }
+    
 }
 
 extension PFObject : Equatable {

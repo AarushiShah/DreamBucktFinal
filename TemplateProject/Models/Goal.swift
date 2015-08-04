@@ -64,10 +64,17 @@ class Goal: PFObject, PFSubclassing{
             println("save succesfully")
         }
     }
+
     func updateAccomplish(completed: Bool) {
         self.accomplished = completed
+        println(accomplished)
         self.saveInBackground()
     }
+    func updateShareable(share: Bool) {
+        self.shareable = share
+        self.saveInBackground()
+    }
+
     
     func uploadImages(images: [UIImage]) {
         
@@ -108,7 +115,7 @@ class Goal: PFObject, PFSubclassing{
         }
     }
     
-    func fetchLikes() -> Int {
+    func fetchLikes() -> [PFUser] {
 
         if (likes.value == nil) {
         ParseHelper.likesForPost(self, completionBlock: { (var likes: [AnyObject]?, error: NSError?) -> Void in
@@ -123,11 +130,11 @@ class Goal: PFObject, PFSubclassing{
         })
         }
         
-        if let numLikes = likes.value?.count {
+        if let numLikes = likes.value {
             return numLikes
         }
         else {
-            return 0
+            return []
         }
     }
 }

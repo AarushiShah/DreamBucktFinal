@@ -96,7 +96,7 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
         self.floatRatingView.rating = starRating!
         
         if let goal = goal {
-            numOfLikes = goal.fetchLikes()
+            //numOfLikes = goal.fetchLikes()
             self.likesLabel.setTitle("\(numOfLikes)", forState: .Normal)
 
         }

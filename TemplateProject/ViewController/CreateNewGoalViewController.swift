@@ -23,6 +23,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     var popViewController : PopUpViewControllerSwift!
     var goalRating: Float? = 1
     var photoTakingHelper:PhotoTakingHelper?
+    var proceed: Bool = false
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -113,27 +114,31 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
 
         
     }
-//    @IBAction func shareableSwitched(sender: AnyObject) {
-//        if shareableSwitch.on {
-//            shareWithFriends = true
-//        }
-//        else {
-//            shareWithFriends = false
-//        }
-//        
-//    }
+
     @IBAction func saveButtonPressed(sender: AnyObject) {
         
-        let goal = Goal()
-        goal.goalDescription = descriptionTextField!.text
-        goal.title = titleTextField.text
-        goal.shareable = true
-        goal.dateGoal = datePicker.date
-        goal.externalLink = linksTextField.text
-        goal.starRating = goalRating!
-        goal.accomplished = false
-        goal.image = imageView.image
-        goal.uploadGoal()
+        if (imageView.image != nil) {
+            performSegueWithIdentifier("mySegue", sender: nil)
+            let goal = Goal()
+            goal.goalDescription = descriptionTextField!.text
+            goal.title = titleTextField.text
+            goal.shareable = true
+            goal.dateGoal = datePicker.date
+            goal.externalLink = linksTextField.text
+            goal.starRating = goalRating!
+            goal.accomplished = false
+            goal.image = imageView.image
+            goal.uploadGoal()
+        } else {
+            proceed = false
+            let alertController = UIAlertController(title: nil, message: "Please Enter an Image", preferredStyle: .Alert)
+            
+            let cancelAction = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+
+        }
     }
     func textFieldShouldReturn(textField: UITextField) ->Bool {
         textField.resignFirstResponder()
@@ -141,19 +146,20 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "mySegue" {
-            var displayGoal: DisplayGoalViewController = segue.destinationViewController as! DisplayGoalViewController
-            displayGoal.titleString = titleTextField.text
-            displayGoal.goalString = descriptionTextField!.text
-            displayGoal.starRating = goalRating
-            if(dateLabel.text != "Set Goal Date") {
-                displayGoal.dateString = dateLabel.text!
+                var displayGoal: DisplayGoalViewController = segue.destinationViewController as! DisplayGoalViewController
+                displayGoal.titleString = titleTextField.text
+                displayGoal.goalString = descriptionTextField!.text
+                displayGoal.starRating = goalRating
+                if(dateLabel.text != "Set Goal Date") {
+                    displayGoal.dateString = dateLabel.text!
+                }
+                displayGoal.linkString = linksTextField.text
+                displayGoal.singleImage = imageView.image!
+                let dateFormat: NSDateFormatter = NSDateFormatter()
+                let hello: String = dateFormat.stringFromDate(datePicker.date)
+                displayGoal.hidesBottomBarWhenPushed = true
             }
-            displayGoal.linkString = linksTextField.text
-            displayGoal.singleImage = imageView.image!
-            let dateFormat: NSDateFormatter = NSDateFormatter()
-            let hello: String = dateFormat.stringFromDate(datePicker.date)
-            displayGoal.hidesBottomBarWhenPushed = true
-        }
+        
     }
     
     func floatRatingView(ratingView: FloatRatingView, isUpdating rating:Float) {

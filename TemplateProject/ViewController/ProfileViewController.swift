@@ -37,13 +37,12 @@ class ProfileViewController: UIViewController {
         profileImageView.layer.masksToBounds = false
         profileImageView.layer.borderColor = UIColor.whiteColor().CGColor
         profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = 50
+        profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
         
         ParseHelper.getFriendsForUser(user) {
             (results: [AnyObject]?, error: NSError?) -> Void in
             
             self.numberOfFriends = results?.count
-            self.friendsArray = results!
             if let reslts = results {
                 for eachfriend in reslts {
                     if (eachfriend["toUser"] != nil) {
@@ -115,7 +114,7 @@ extension ProfileViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FriendCell") as! UsersFriendsTableViewCell
-        
+        friendsArray[indexPath.item].fetchIfNeeded()
         println(friendsArray[indexPath.item].username)
        // cell.usernameLabel.text = friendsArray[indexPath.row].username
 

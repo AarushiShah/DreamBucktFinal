@@ -7,14 +7,18 @@
 //
 
 import UIKit
+import Foundation
 import Parse
 import Bond
 
 class GoalTableViewCell: UITableViewCell {
     
     var likedByUser = false
+    var inputTextField: UITextField?
     var numOfLikes: Int = 0
+    var likesArray: [PFUser] = []
     var likeBond: Bond<[PFUser]?>!
+    var viewController: TimelineViewController?
 
     @IBOutlet weak var commentView: UIView!
     @IBOutlet weak var goalImageView: UIImageView!
@@ -36,8 +40,7 @@ class GoalTableViewCell: UITableViewCell {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        // 1
+                // 1
         likeBond = Bond<[PFUser]?>() { [unowned self] likeList in
             // 2
             if let likeList = likeList {
@@ -50,6 +53,46 @@ class GoalTableViewCell: UITableViewCell {
                 self.likeButton.selected = false
             }
         }
+    }
+    @IBAction func viewLikesButtonTapped(sender: AnyObject) {
+         //performSegueWithIdentifier("viewLikes", sender: nil)
+    }
+    @IBAction func moreButtonTapped(sender: AnyObject) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+       
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let flagContentAction = UIAlertAction(title: "Flag Post", style: .Default) { (action) in
+                    self.addFlagAlertView()
+        }
+        alertController.addAction(flagContentAction)
+        viewController!.presentViewController(alertController, animated: true, completion: nil)
+
+        
+    }
+    
+    func addFlagAlertView() {
+        let actionSheetController: UIAlertController = UIAlertController(title: "Flag Content", message: "Why are you reporting this post?", preferredStyle: .Alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        actionSheetController.addAction(cancelAction)
+        
+        let done = UIAlertAction(title: "Done", style: .Default) { (action) in
+               ParseHelper.addFlag(self.goal!, user: PFUser.currentUser()!, message: self.inputTextField!.text)
+        }
+        
+        actionSheetController.addTextFieldWithConfigurationHandler { textField -> Void in
+            textField.textColor = UIColor.blueColor()
+            self.inputTextField = textField
+            
+        }
+        
+        
+        actionSheetController.addAction(done)
+        self.viewController!.presentViewController(actionSheetController, animated: true, completion: nil)
+        
+
     }
     
     @IBAction func likeButtonTapped(sender: AnyObject) {

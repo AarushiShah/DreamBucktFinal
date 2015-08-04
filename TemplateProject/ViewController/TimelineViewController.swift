@@ -14,7 +14,7 @@ class TimelineViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var goals: [Goal] = []
     var users: [PFUser] = []
-    var numOfLikes: Int = 0
+    var numOfLikes: [PFUser] = []
     var cellTapped:Bool = true
     var currentRow = -1
     
@@ -45,14 +45,11 @@ class TimelineViewController: UIViewController {
     }
     @IBAction func commentButtonTapped(sender: AnyObject) {
         
-        // var selectedRowIndex = indexPath
-        // currentRow = selectedRowIndex.row
-        
         tableView.beginUpdates()
         tableView.endUpdates()
         
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -72,7 +69,7 @@ extension TimelineViewController: UITableViewDataSource {
         cell.goalImageView.image = goals[indexPath.row].image
         cell.titleLable?.text = goals[indexPath.row].title
         let username = users[indexPath.row].username
-        cell.accomplishedTitle.text = ("\(username) Accomplished a Goal")
+        cell.accomplishedTitle.text = ("\(username!) Accomplished a Goal")
         cell.floatRatingView.emptyImage = UIImage(named: "Star")
         cell.floatRatingView.fullImage = UIImage(named: "SelectedStar")
         cell.floatRatingView.editable = false
@@ -80,7 +77,9 @@ extension TimelineViewController: UITableViewDataSource {
         cell.goal = goals[indexPath.row]
         numOfLikes = goals[indexPath.row].fetchLikes()
         cell.commentButton.selectCom = indexPath.row
-        cell.likesLabel.text = "\(numOfLikes)"
+        cell.likesLabel.text = "\(numOfLikes.count)"
+        cell.likesArray = numOfLikes
+        cell.viewController = self
         
         
         
@@ -104,11 +103,4 @@ extension TimelineViewController: UITableViewDataSource {
     }
 }
 
-extension TimelineViewController: UITableViewDelegate {
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
-    }
-    
-}
 
