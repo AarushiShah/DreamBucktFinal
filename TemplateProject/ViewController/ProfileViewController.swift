@@ -26,6 +26,7 @@ class ProfileViewController: UIViewController {
     var profileImage: UIImage?
     var friendsArray = [AnyObject]()
     
+    
     override func viewDidLoad() {
         
         tableView.hidden = true
@@ -113,10 +114,35 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+       
         let cell = tableView.dequeueReusableCellWithIdentifier("FriendCell") as! UsersFriendsTableViewCell
+        
         friendsArray[indexPath.item].fetchIfNeeded()
-        println(friendsArray[indexPath.item].username)
-       // cell.usernameLabel.text = friendsArray[indexPath.row].username
+        cell.usernameLabel.text = friendsArray[indexPath.item].username
+        
+        var image: AnyObject? = friendsArray[indexPath.item]["profileImage"]
+        if (image != nil) {
+            let data = image!.getData()
+            
+            if (data != nil) {
+                var profileImage = UIImage(data: data!, scale:1.0)
+                cell.profileImage.image = profileImage
+            }
+            
+        }
+        
+        ParseHelper.isAFriend(friendsArray[indexPath.item] as! PFUser, user2: PFUser.currentUser()!) {
+            
+            (results: [AnyObject]?,error: NSError?) -> Void in
+            if (results?.count != 0) {
+                cell.addFriendButton.setImage(UIImage(named:"Friend"), forState: .Normal)
+                //self.friend = true
+            } else {
+                 cell.addFriendButton.setImage(UIImage(named:"Friend Add"), forState: .Normal)
+                //self.friend = false
+            }
+        }
+
 
         return cell
     }

@@ -9,14 +9,18 @@
 import UIKit
 import Parse
 
-class TimelineViewController: UIViewController {
+class TimelineViewController: UIViewController,Likes {
     
     @IBOutlet weak var tableView: UITableView!
+    //@IBOutlet weak var viewLikesButton: CommentButton!
+
     var goals: [Goal] = []
     var users: [PFUser] = []
     var numOfLikes: [PFUser] = []
     var cellTapped:Bool = true
-    var currentRow = -1
+    //var currentRow = -1
+    var likes: Int = 0
+    var dictionaryOfLikes = [Int: [PFUser]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,11 +47,25 @@ class TimelineViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
+    func numLikes(number: Int) {
+        likes = number
+        performSegueWithIdentifier("viewLikes", sender: self)
+        
+        
+    }
     @IBAction func commentButtonTapped(sender: AnyObject) {
         
         tableView.beginUpdates()
         tableView.endUpdates()
         
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "viewLikes" {
+            var likesVC: ViewLikesViewController = segue.destinationViewController as! ViewLikesViewController
+            println(dictionaryOfLikes[likes]!)
+            likesVC.likes = dictionaryOfLikes[likes]!
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,6 +97,8 @@ extension TimelineViewController: UITableViewDataSource {
         cell.commentButton.selectCom = indexPath.row
         cell.likesLabel.text = "\(numOfLikes.count)"
         cell.likesArray = numOfLikes
+        cell.viewLikesButton.selectCom = indexPath.row
+        dictionaryOfLikes[indexPath.row] = numOfLikes
         cell.viewController = self
         
         

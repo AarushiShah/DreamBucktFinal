@@ -139,9 +139,13 @@ class ParseHelper {
         
         let postsFromFollowedUsers = Goal.query()
         postsFromFollowedUsers!.whereKey("ofUser", matchesKey: "toUser", inQuery: followingQuery)
+        postsFromFollowedUsers!.whereKey("accomplished", equalTo: true)
+        postsFromFollowedUsers!.whereKey("shareable", equalTo: true)
         
         let postsFromThisUser = Goal.query()
         postsFromThisUser!.whereKey("ofUser", equalTo: PFUser.currentUser()!)
+        postsFromThisUser!.whereKey("accomplished", equalTo: true)
+        postsFromThisUser!.whereKey("shareable", equalTo: true)
         
         let query = PFQuery.orQueryWithSubqueries([postsFromFollowedUsers!, postsFromThisUser!])
         

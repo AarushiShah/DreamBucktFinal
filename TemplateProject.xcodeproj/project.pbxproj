@@ -43,6 +43,7 @@
 		4E0C2EFD1B6183A400AC45EA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0C2EFC1B6183A400AC45EA /* StoreKit.framework */; };
 		4E0C2EFF1B61845200AC45EA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C2EFE1B61845200AC45EA /* ProfileViewController.swift */; };
 		4E0C2F0D1B61AA7300AC45EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0C2F0C1B61AA7300AC45EA /* QuartzCore.framework */; };
+		4E41D6371B712B8000905C98 /* ViewLIkesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E41D6361B712B8000905C98 /* ViewLIkesTableViewCell.swift */; };
 		4E528E601B697837007155E6 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E5F1B697837007155E6 /* GoalTableViewCell.swift */; };
 		4E528E6C1B6ADF3E007155E6 /* MethodHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E6B1B6ADF3E007155E6 /* MethodHelper.swift */; };
 		4E528E6E1B6AE83D007155E6 /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E6D1B6AE83D007155E6 /* CommentButton.swift */; };
@@ -209,6 +210,7 @@
 		4E0C2EFC1B6183A400AC45EA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4E0C2EFE1B61845200AC45EA /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4E0C2F0C1B61AA7300AC45EA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4E41D6361B712B8000905C98 /* ViewLIkesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLIkesTableViewCell.swift; sourceTree = "<group>"; };
 		4E528E5F1B697837007155E6 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
 		4E528E6B1B6ADF3E007155E6 /* MethodHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MethodHelper.swift; sourceTree = "<group>"; };
 		4E528E6D1B6AE83D007155E6 /* CommentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentButton.swift; path = ../../CommentButton.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				4EFD465C1B68296E00871157 /* User.swift */,
 				4E528E5F1B697837007155E6 /* GoalTableViewCell.swift */,
 				4EAECDAF1B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift */,
+				4E41D6361B712B8000905C98 /* ViewLIkesTableViewCell.swift */,
 			);
 			name = Models;
 			path = TemplateProject/Models;
@@ -654,6 +657,7 @@
 				4E0C2EB21B616FE300AC45EA /* AppDelegate.swift in Sources */,
 				4E0C2EDA1B617D5A00AC45EA /* ImageViewController.swift in Sources */,
 				4E0C2EDB1B617D5A00AC45EA /* TimelineViewController.swift in Sources */,
+				4E41D6371B712B8000905C98 /* ViewLIkesTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

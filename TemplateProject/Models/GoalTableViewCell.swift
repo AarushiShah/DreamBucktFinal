@@ -20,7 +20,9 @@ class GoalTableViewCell: UITableViewCell {
     var likeBond: Bond<[PFUser]?>!
     var viewController: TimelineViewController?
 
-    @IBOutlet weak var commentView: UIView!
+   // @IBOutlet weak var commentView: UIView!
+   // @IBOutlet weak var vieLikesButton: CommentButton!
+    @IBOutlet weak var viewLikesButton: CommentButton!
     @IBOutlet weak var goalImageView: UIImageView!
     @IBOutlet weak var accomplishedTitle: UILabel!
     @IBOutlet weak var likeButton: UIButton!
@@ -55,8 +57,12 @@ class GoalTableViewCell: UITableViewCell {
         }
     }
     @IBAction func viewLikesButtonTapped(sender: AnyObject) {
-         //performSegueWithIdentifier("viewLikes", sender: nil)
+        
+        //println(commentButton.selectCom)
+        viewController?.numLikes(commentButton.selectCom)
     }
+
+
     @IBAction func moreButtonTapped(sender: AnyObject) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
        
@@ -100,4 +106,8 @@ class GoalTableViewCell: UITableViewCell {
         goal?.toggleLikePost(PFUser.currentUser()!)
     }
 
+}
+
+protocol Likes {
+    func numLikes(number: Int) -> Void
 }
