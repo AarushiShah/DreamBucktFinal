@@ -21,6 +21,7 @@ class GoalOverviewViewController: UIViewController, UICollectionViewDataSource, 
     var displayNumber: Int? = 1
     var displayString: String? = ""
     var passOnImage: UIImage?
+    var dictionaryOfImages = [Int: UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,19 @@ class GoalOverviewViewController: UIViewController, UICollectionViewDataSource, 
             (results: [AnyObject]?, error: NSError?) -> Void in
             let goal = results as? [Goal] ?? []
             
+            if goal.count == 0  {
+                let alertController = UIAlertController(title: nil, message: "No Goals in this category", preferredStyle: .Alert)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                alertController.addAction(cancelAction)
+                
+                let addGoalAction = UIAlertAction(title: "Create New Goal", style: .Default) { (action) in
+                    self.presentViewController(CreateNewGoalViewController(), animated: true, completion: nil)
+                }
+                alertController.addAction(addGoalAction)
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
             for eachgoal in goal {
                 if(eachgoal.title != "") {
                     self.tableData.append(eachgoal.title!)
@@ -65,13 +79,14 @@ class GoalOverviewViewController: UIViewController, UICollectionViewDataSource, 
                 if (error == nil) {
                     let imageUI = UIImage(data:imageData!)
                    cell.imgCell.image = imageUI
-                   self.passOnImage = imageUI
+                   self.dictionaryOfImages[indexPath.row] = imageUI
                 }
             }
             
 
         } else {
             cell.imgCell.image = UIImage(named: tableImages[indexPath.row])
+            self.dictionaryOfImages[indexPath.row] = UIImage(named: tableImages[indexPath.row])
         }
         
         return cell
@@ -80,6 +95,7 @@ class GoalOverviewViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
        selectedGoal = goalArray[indexPath.item]
+        passOnImage = dictionaryOfImages[indexPath.row]
        performSegueWithIdentifier("displayGoal", sender: nil)
         
     }

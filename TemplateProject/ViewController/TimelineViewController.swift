@@ -18,17 +18,14 @@ class TimelineViewController: UIViewController,Likes {
     var users: [PFUser] = []
     var numOfLikes: [PFUser] = []
     var cellTapped:Bool = true
-    //var currentRow = -1
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var likes: Int = 0
     var dictionaryOfLikes = [Int: [PFUser]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         
+        activityIndicator.startAnimating()
         ParseHelper.timelineRequestforCurrentUser {
             (result: [AnyObject]?, error: NSError?) -> Void in
             self.goals = result as? [Goal] ?? []
@@ -45,8 +42,15 @@ class TimelineViewController: UIViewController,Likes {
                 self.users.append(user!)
             }
             self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
         }
+
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+            }
     func numLikes(number: Int) {
         likes = number
         performSegueWithIdentifier("viewLikes", sender: self)
@@ -71,6 +75,9 @@ class TimelineViewController: UIViewController,Likes {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    
+    
 }
 
 extension TimelineViewController: UITableViewDataSource {
@@ -94,11 +101,13 @@ extension TimelineViewController: UITableViewDataSource {
         cell.floatRatingView.rating = goals[indexPath.row].starRating
         cell.goal = goals[indexPath.row]
         numOfLikes = goals[indexPath.row].fetchLikes()
+        println("\(numOfLikes) \(indexPath.row)")
         cell.commentButton.selectCom = indexPath.row
         cell.likesLabel.text = "\(numOfLikes.count)"
         cell.likesArray = numOfLikes
         cell.viewLikesButton.selectCom = indexPath.row
         dictionaryOfLikes[indexPath.row] = numOfLikes
+        println("num of likes \(numOfLikes.count)")
         cell.viewController = self
         
         

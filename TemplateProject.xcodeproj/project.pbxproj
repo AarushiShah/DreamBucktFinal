@@ -48,6 +48,7 @@
 		4E528E6C1B6ADF3E007155E6 /* MethodHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E6B1B6ADF3E007155E6 /* MethodHelper.swift */; };
 		4E528E6E1B6AE83D007155E6 /* CommentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E6D1B6AE83D007155E6 /* CommentButton.swift */; };
 		4E528E701B6BDCA5007155E6 /* AccomplishedGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E528E6F1B6BDCA5007155E6 /* AccomplishedGoalViewController.swift */; };
+		4E68370A1B718346001DFEB1 /* GoalInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6837091B718346001DFEB1 /* GoalInfoTableViewCell.swift */; };
 		4EA399741B62B7EC00172B13 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA399731B62B7EC00172B13 /* FloatRatingView.swift */; };
 		4EAECDB01B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAECDAF1B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift */; };
 		4EAECDB81B7036B0007EAFB1 /* ViewLikesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAECDB71B7036B0007EAFB1 /* ViewLikesViewController.swift */; };
@@ -215,6 +216,7 @@
 		4E528E6B1B6ADF3E007155E6 /* MethodHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MethodHelper.swift; sourceTree = "<group>"; };
 		4E528E6D1B6AE83D007155E6 /* CommentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentButton.swift; path = ../../CommentButton.swift; sourceTree = "<group>"; };
 		4E528E6F1B6BDCA5007155E6 /* AccomplishedGoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccomplishedGoalViewController.swift; sourceTree = "<group>"; };
+		4E6837091B718346001DFEB1 /* GoalInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalInfoTableViewCell.swift; sourceTree = "<group>"; };
 		4EA399731B62B7EC00172B13 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		4EAECDAF1B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersFriendsTableViewCell.swift; sourceTree = "<group>"; };
 		4EAECDB71B7036B0007EAFB1 /* ViewLikesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLikesViewController.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				4E528E5F1B697837007155E6 /* GoalTableViewCell.swift */,
 				4EAECDAF1B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift */,
 				4E41D6361B712B8000905C98 /* ViewLIkesTableViewCell.swift */,
+				4E6837091B718346001DFEB1 /* GoalInfoTableViewCell.swift */,
 			);
 			name = Models;
 			path = TemplateProject/Models;
@@ -655,6 +658,7 @@
 				4E0C2EE81B617E1300AC45EA /* ErrorHandling.swift in Sources */,
 				4EA399741B62B7EC00172B13 /* FloatRatingView.swift in Sources */,
 				4E0C2EB21B616FE300AC45EA /* AppDelegate.swift in Sources */,
+				4E68370A1B718346001DFEB1 /* GoalInfoTableViewCell.swift in Sources */,
 				4E0C2EDA1B617D5A00AC45EA /* ImageViewController.swift in Sources */,
 				4E0C2EDB1B617D5A00AC45EA /* TimelineViewController.swift in Sources */,
 				4E41D6371B712B8000905C98 /* ViewLIkesTableViewCell.swift in Sources */,

@@ -44,6 +44,20 @@ class ParseHelper {
         query.findObjectsInBackgroundWithBlock(completionBlock)
         return query
     }
+    static func accomplishments(user: PFUser, completionBlock: PFArrayResultBlock) {
+        
+        let postsFromThisUser = Goal.query()
+        postsFromThisUser!.whereKey("ofUser", equalTo: user)
+        postsFromThisUser!.whereKey("accomplished", equalTo: true)
+        postsFromThisUser!.whereKey("shareable", equalTo: true)
+        
+        postsFromThisUser!.includeKey("ofUser")
+        
+        postsFromThisUser!.orderByDescending("createdAt")
+        
+        
+        postsFromThisUser!.findObjectsInBackgroundWithBlock(completionBlock)
+    }
     //fetch users whose usernames match the provided search term
     static func searchUsers(searchText: String, completionBlock: PFArrayResultBlock) -> PFQuery {
         
@@ -58,18 +72,7 @@ class ParseHelper {
         return query
     }
     //MARK: IMAGES
-    static func uploadPictures(goal:Goal, images: [UIImage]) {
-//        let goalObject = PFObject(className: "Goal" )
-//       // goalObject.whereKey("objectId", equalTo: goal.objectId!)
-//        
-//        let finalImageArray:[PFFile]
-//        for eachimage in images {
-//            var file = PFFile(data: UIImageJPEGRepresentation(eachimage, 1.0))
-//            finalImageArray.append(file)
-//        }
-//        goalObject["imageFileArray"] = finalImageArray
-//        goalObject.save()
-    }
+
     static func getImages(goal: Goal, completionBlock: PFArrayResultBlock) {
         let goalQuery = Goal.query()
         goalQuery?.whereKey("objectId", equalTo: goal.objectId!)
@@ -169,7 +172,7 @@ class ParseHelper {
         let currentLikes = PFObject(className: ParseLikeClass )
         currentLikes[ParseLikeFromUser] = PFUser.currentUser()
         currentLikes[ParseLikeToPost] = goal
-        currentLikes.save()
+        currentLikes.saveInBackground()
     }
     static func removeLike(goal: Goal) {
         let currentLikes = PFQuery(className: ParseLikeClass)

@@ -16,6 +16,7 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
     var goal: Goal?
     var photoTakingHelper:PhotoTakingHelper?
     var shareWithFriends = true
+    var uploadingImage: UIImage?
 
     @IBOutlet var pageControl: UIPageControl!
     var pageImages: [UIImage] = []
@@ -39,6 +40,26 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
             }
             
         }
+    @IBAction func backPressed(sender: AnyObject)
+    {
+        if (uploadingImage != nil) {
+           println(pageImages)
+           goal?.updateImages(uploadingImage!)
+           goal!.updateShareable(shareWithFriends)
+        
+           self.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            let alertController = UIAlertController(title: nil, message: "Please Add an Image", preferredStyle: .Alert)
+            
+            let cancelAction = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+
+        }
+            
+        
+    }
     func reloadScrollView() {
         
         let pageCount = pageImages.count
@@ -62,7 +83,7 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
         
     }
     func addEmptyImages() {
-        for var index = 0; index < 5; ++index {
+        for var index = 0; index < 1; ++index {
             var emptyImage = UIImage()
             pageImages.append(emptyImage)
         
@@ -73,10 +94,9 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
         photoTakingHelper = PhotoTakingHelper(viewController: self) { (image: UIImage?) in
            var currentPage = self.pageControl.currentPage
            self.pageImages[currentPage] = image!
-            
+          self.uploadingImage = image
             self.reloadScrollView()
-            println(self.pageImages)
-     }
+        }
 
     }
     
@@ -159,11 +179,7 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBAction func unwindToSegue(segue: UIStoryboardSegue){
-        goal?.uploadImages(pageImages)
-        ParseHelper.uploadPictures(goal!, images: pageImages)
-       goal!.updateShareable(shareWithFriends)
-    }
+
     
 
 }

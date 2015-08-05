@@ -25,6 +25,8 @@ class ProfileViewController: UIViewController {
     var friend: Bool = false
     var profileImage: UIImage?
     var friendsArray = [AnyObject]()
+    var goalsArray = [Goal]()
+    var whichOne: String = "friends"
     
     
     override func viewDidLoad() {
@@ -67,12 +69,29 @@ class ProfileViewController: UIViewController {
                 self.friend = false
             }
         }
+        
+        ParseHelper.accomplishments(user) {
+            (results: [AnyObject]?, error: NSError?) -> Void in
+            
+            self.goalsArray = results as? [Goal] ?? []
+            
+            self.bucketButton.setTitle("   \(self.goalsArray.count)", forState: .Normal)
+
+        }
 
         
     }
   
     @IBAction func viewFriendsButtonTapped(sender: AnyObject) {
         tableView.hidden = false
+        whichOne = "friends"
+        tableView.reloadData()
+    }
+    
+    @IBAction func viewAccomplishments(sender: AnyObject) {
+        tableView.hidden = false
+        whichOne = "accomplish"
+        tableView.reloadData()
     }
     @IBAction func friendButtonTapped(sender: AnyObject) {
         if friend {
@@ -102,19 +121,31 @@ extension ProfileViewController: UITableViewDataSource {
     
     func tableView(tableView:UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if (numberOfFriends != nil) {
-            return numberOfFriends!
+          if whichOne == "friends"{
+                if (numberOfFriends != nil) {
+                    return numberOfFriends!
 
-        } else {
-            return 0
-        }
+                } else {
+                    return 0
+                }
+          } else {
+            if (goalsArray.count != 0) {
+                return goalsArray.count
+                
+            } else {
+                return 0
+            }
+          }
+    }
+    func tableView(tableView: UITableView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-       
+      if whichOne == "friends" {
         let cell = tableView.dequeueReusableCellWithIdentifier("FriendCell") as! UsersFriendsTableViewCell
         
         friendsArray[indexPath.item].fetchIfNeeded()
@@ -142,8 +173,19 @@ extension ProfileViewController: UITableViewDataSource {
                 //self.friend = false
             }
         }
-
-
         return cell
+      } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("GoalCell") as! GoalInfoTableViewCell
+        
+            cell.goalTitle.text = goalsArray[indexPath.row].title
+        
+            let data = goalsArray[indexPath.row].imageFile!.getData()
+            
+            if (data != nil) {
+                cell.imageView?.image = UIImage(data: data!, scale:1.0)
+            }
+    
+            return cell
+        }
     }
 }

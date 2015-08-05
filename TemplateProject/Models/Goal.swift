@@ -26,6 +26,8 @@ class Goal: PFObject, PFSubclassing{
     var image:UIImage?
     var likes =  Dynamic<[PFUser]?>(nil)
     var photoUploadTask: UIBackgroundTaskIdentifier?
+    var photoUploadTask2: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+    var eachimage: PFFile?
 
     
    
@@ -74,29 +76,39 @@ class Goal: PFObject, PFSubclassing{
         self.shareable = share
         self.saveInBackground()
     }
-
     
-    func uploadImages(images: [UIImage]) {
-        
-        for eachimage in images {
-            let imageData = UIImageJPEGRepresentation(eachimage, 0.8)
-            let imageFile = PFFile(data:imageData)
-            imageFileArray!.append(imageFile)
-            imageFile.saveInBackgroundWithBlock { (succes: Bool, error: NSError?) -> Void in
-                UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
-            }
+    func updateImages(image: UIImage) {
+        let imageData = UIImageJPEGRepresentation(image, 0.8)
+        imageFile = PFFile(data:imageData)
+        photoUploadTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler{ () -> Void in
+            
+            UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
         }
-            
-            //when the post uploads, we create this background task, and IOS stores the unique ID of the background task in photoUploadTask.
-            //the API requires us to provide an ExpirationHandler in the form of a closure, so whenever the time is up, we can stop the background task and delete any temporary information we may have kept. We have none in this case
-            photoUploadTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler{ () -> Void in
-                
-                UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
-                //if you dont do this ^ your app will be terminated
-            }
-            
         
+        imageFile!.saveInBackgroundWithBlock { (succes: Bool, error: NSError?) -> Void in
+            UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
+        }
+        self.saveInBackground()
+
+//        for each in images {
+//            let imageData = UIImageJPEGRepresentation(each, 0.8)
+//          if imageData != nil {
+//            eachimage = PFFile(data:imageData)
+//            imageFileArray?.append(eachimage!)
+//            photoUploadTask2 = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler{ () -> Void in
+//                
+//                UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask2)
+//            }
+//            
+//            eachimage!.saveInBackgroundWithBlock { (succes: Bool, error: NSError?) -> Void in
+//                UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask2)
+//            }
+//          }
+//        }
+//        self.saveInBackground()
+
     }
+
     func doesUserLikePost(user: PFUser) -> Bool {
         if let likes = likes.value {
             return contains(likes, user)
@@ -116,7 +128,7 @@ class Goal: PFObject, PFSubclassing{
     }
     
     func fetchLikes() -> [PFUser] {
-
+        
         if (likes.value == nil) {
         ParseHelper.likesForPost(self, completionBlock: { (var likes: [AnyObject]?, error: NSError?) -> Void in
             likes = likes?.filter { like in like[ParseHelper.ParseLikeFromUser] != nil }
@@ -124,13 +136,16 @@ class Goal: PFObject, PFSubclassing{
             self.likes.value = likes?.map { like in
                 let like = like as! PFObject
                 let fromUser = like[ParseHelper.ParseLikeFromUser] as! PFUser
-                
+
                 return fromUser
+                
             }
-        })
+            
+            
+         })
         }
         
-        if let numLikes = likes.value {
+        if let numLikes = self.likes.value{
             return numLikes
         }
         else {

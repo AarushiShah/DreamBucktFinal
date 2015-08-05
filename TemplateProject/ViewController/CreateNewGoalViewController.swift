@@ -131,7 +131,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
             goal.uploadGoal()
         } else {
             proceed = false
-            let alertController = UIAlertController(title: nil, message: "Please Enter an Image", preferredStyle: .Alert)
+            let alertController = UIAlertController(title: nil, message: "Please Add an Image", preferredStyle: .Alert)
             
             let cancelAction = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
             alertController.addAction(cancelAction)

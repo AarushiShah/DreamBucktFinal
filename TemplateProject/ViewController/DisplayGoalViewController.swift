@@ -70,24 +70,18 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // goal!.likes ->> likeBond
         
         if (goal?.accomplished == true) {
             accomplishButton.setImage(UIImage(named:"Accomplished"), forState: .Normal)
             accomplished = true
             accomplishButton.userInteractionEnabled = false
-            ParseHelper.getImages(goal!) {
-              (result: [AnyObject]?, error: NSError?) -> Void in
-                    println(result?.count)
-                }
             
-        } else {
-            if (singleImage != UIImage()) {
-                pageImages.append(singleImage)
-            }
-           
-
         }
+        
+        if (singleImage != UIImage()) {
+                pageImages.append(singleImage)
+        }
+           
         goalDescription.userInteractionEnabled = false
         
         self.floatRatingView.emptyImage = UIImage(named: "Star")
@@ -235,6 +229,7 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
             accomplishedGoal.goal = self.goal
         }
     }
+
 
     @IBAction func likeButtonTapped(sender: AnyObject){
         
