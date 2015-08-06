@@ -13,6 +13,7 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
     private let reuseIdentifier = "Cell"
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var tableData = [String]()
     var userArray = [PFUser]()
     var tableImages = [UIImage]()
@@ -26,6 +27,7 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
     // stores all the users that match the current search query
       override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.startAnimating()
         ParseHelper.allUsers() {
             (results: [AnyObject]?, error: NSError?) -> Void in
             let user = results as? [PFUser] ?? []
@@ -50,7 +52,9 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
 
                 
                 self.tableData.append(name)
+                
                 self.collectionView!.reloadData()
+                self.activityIndicator.stopAnimating()
             }
             
             if let error = error {
@@ -106,7 +110,8 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
         performSegueWithIdentifier("profile", sender: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
         var profileVC: ProfileViewController = segue.destinationViewController as! ProfileViewController
         profileVC.user = selecteduser
         profileVC.profileImage = selectedimage

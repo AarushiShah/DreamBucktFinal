@@ -48,7 +48,13 @@ class GoalTableViewCell: UITableViewCell {
             if let likeList = likeList {
 
                 self.likesLabel.text = MethodHelper.stringFromUserList(likeList)
-                self.likeButton.selected = contains(likeList, PFUser.currentUser()!)
+                
+                if contains(likeList, PFUser.currentUser()!) {
+                    self.likeButton.setImage(UIImage(named:"Heart Selected"), forState: .Normal)
+                } else {
+                    self.likeButton.setImage(UIImage(named:"Heart"), forState: .Normal)
+                }
+                //self.likeButton.selected = contains(likeList, PFUser.currentUser()!)
 
             } else {
                 self.likesLabel.text = "0"

@@ -15,7 +15,7 @@ class VisionboardViewController: UIViewController {
     var textBox: UITextField?
     var collagePictures: [UIImageView] = []
     var collageTextBoxes: [UITextField] = []
-    var numberClicked: Int = 1
+    var numberClicked: Int = 0
   //  var collageObjects: [AnyObject] = []
     
     @IBOutlet weak var paint: UIBarButtonItem!
@@ -39,11 +39,14 @@ class VisionboardViewController: UIViewController {
                     let image = UIImage(data:imageData!)
                     self.visionboardImageView.image = image
                     self.paintToolBar.hidden = true
-                    
+                
                // }
             }
         } else {
             editButton.hidden = true
+            paintToolBar.hidden = false
+            visionboardImageView.hidden = true
+            createNew.hidden = true
         }
         
         colorWheel.hidden = true
@@ -68,11 +71,13 @@ class VisionboardViewController: UIViewController {
     @IBAction func editVisionboard(sender: AnyObject) {
         editButton.hidden = true
         paintToolBar.hidden = false
+        createNew.hidden = true
         visionboardImageView.userInteractionEnabled = true
 
     }
     @IBAction func createNewVisionboard(sender: AnyObject) {
         editButton.hidden = true
+        createNew.hidden = true
         visionboardImageView.hidden = true
         paintToolBar.hidden = false
         view.backgroundColor = UIColor.whiteColor()
@@ -184,7 +189,7 @@ class VisionboardViewController: UIViewController {
         textBoxObject = UITextField(frame:CGRectMake(50, 150, 300, 50))
         self.addGestures(textBoxObject!)
         textBoxObject?.backgroundColor = UIColor.redColor()
-        self.view!.addSubview(textBoxObject!)
+        self.container!.addSubview(textBoxObject!)
         // textBoxObject!.delegate = self
         self.collageTextBoxes.append(textBoxObject!)
        // self.collageObjects.append(textBoxObject!)

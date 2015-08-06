@@ -18,6 +18,7 @@ class ParseHelper {
     
     // Friend Relation
     static let ParseFollowClass       = "Friend"
+    static let ParseAcceptedFriend    = "Accepted"
     static let ParseFollowFromUser    = "fromUser"
     static let ParseFollowToUser      = "toUser"
     
@@ -87,6 +88,8 @@ class ParseHelper {
         //query.includeKey(ParseFriendsArray)
         query.findObjectsInBackgroundWithBlock(completionBlock)
     }
+    
+    //MARK: FRIENDS)
     static func addFriendRelationshipFromUser(user: PFUser, toUser: PFUser) {
         let friendObject = PFObject(className: ParseFollowClass)
         friendObject.setObject(user, forKey: ParseFollowFromUser)
@@ -110,6 +113,13 @@ class ParseHelper {
             }
         }
         
+    }
+    static func checkForFriendRequests() {
+        let query = PFQuery(className: ParseFollowClass)
+        query.whereKey(ParseFollowFromUser, equalTo: PFUser.currentUser()!)
+        query.whereKey(ParseAcceptedFriend, equalTo: false)
+        query.findObjectsInBackground()
+
     }
 
     

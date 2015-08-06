@@ -8,8 +8,9 @@
 
 import UIKit
 import Parse
+import ParseUI
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate  {
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -27,6 +28,10 @@ class ProfileViewController: UIViewController {
     var friendsArray = [AnyObject]()
     var goalsArray = [Goal]()
     var whichOne: String = "friends"
+    var selecteduser: PFUser!
+    var selectedimage:UIImage!
+    var profileImages = [UIImage]()
+    var userArray = [PFUser]()
     
     
     override func viewDidLoad() {
@@ -113,6 +118,30 @@ class ProfileViewController: UIViewController {
     @IBAction func unwindToSegue(segue: UIStoryboardSegue){
         
     }
+    @IBAction func logoutAction(sender: AnyObject) {
+        PFUser.logOut()
+        
+        self.loginSetup()
+    }
+    
+    func loginSetup() {
+        
+        if (PFUser.currentUser() == nil) {
+            
+            var logInViewController = PFLogInViewController()
+            
+            logInViewController.delegate = self
+            
+            var signUpViewController = PFSignUpViewController()
+            
+            signUpViewController.delegate = self
+            
+            logInViewController.signUpController = signUpViewController
+            
+            self.presentViewController(logInViewController, animated: true, completion: nil)
+            
+           }
+        }
 }
 
 
@@ -137,9 +166,6 @@ extension ProfileViewController: UITableViewDataSource {
             }
           }
     }
-    func tableView(tableView: UITableView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
-    }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -150,6 +176,7 @@ extension ProfileViewController: UITableViewDataSource {
         
         friendsArray[indexPath.item].fetchIfNeeded()
         cell.usernameLabel.text = friendsArray[indexPath.item].username
+        userArray.append(friendsArray[indexPath.item] as! PFUser)
         
         var image: AnyObject? = friendsArray[indexPath.item]["profileImage"]
         if (image != nil) {
@@ -157,9 +184,14 @@ extension ProfileViewController: UITableViewDataSource {
             
             if (data != nil) {
                 var profileImage = UIImage(data: data!, scale:1.0)
+                profileImages.append(profileImage!)
                 cell.profileImage.image = profileImage
+            } else {
+                profileImages.append(UIImage(named: "photo1.png")!)
             }
             
+        } else {
+            profileImages.append(UIImage(named: "photo1.png")!)
         }
         
         ParseHelper.isAFriend(friendsArray[indexPath.item] as! PFUser, user2: PFUser.currentUser()!) {

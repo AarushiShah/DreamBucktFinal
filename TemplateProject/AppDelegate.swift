@@ -11,6 +11,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import Parse
 import ParseUI
+import Mixpanel
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate{
@@ -39,6 +40,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        Mixpanel.sharedInstanceWithToken("46ebc5702d4346b9a6b91b32153cd1bc")
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("App launched")
+        
         // Override point for customization after application launch.
         Parse.setApplicationId("vs5D3XQKIXRambyOBJaUkJJAY4hKSUwBYSaBaIkx", clientKey: "D3XIiDoS1xMqrJJRIHdNk7nBrdr4cT25EOD1m9Ed")
         // Initialize Facebook

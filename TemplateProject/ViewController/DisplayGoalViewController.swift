@@ -18,10 +18,12 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var whiteView: UIView!
     @IBOutlet weak var titleTF: UILabel?
     @IBOutlet weak var date: UILabel?
+    @IBOutlet weak var scrollViewContent: UIView!
     @IBOutlet weak var likesLabel: UIButton!
     @IBOutlet weak var link: UILabel?
     @IBOutlet weak var floatRatingView: FloatRatingView!
     @IBOutlet weak var goalDescription: UITextView!
+    @IBOutlet weak var goalImageView: UIImageView!
     @IBOutlet weak var background: UIImageView!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var pageControl: UIPageControl!
@@ -131,7 +133,7 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
         // 4
         let pagesScrollViewSize = scrollView.frame.size
         scrollView.contentSize = CGSize(width: pagesScrollViewSize.width * CGFloat(pageImages.count),
-            height: pagesScrollViewSize.height)
+        height: pagesScrollViewSize.height)
         
         // 5
         loadVisiblePages()
@@ -154,8 +156,10 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
             // 3
             let newPageView = UIImageView(image: pageImages[page])
             newPageView.contentMode = .ScaleAspectFit
+            //newPageView.contentMode = .Center
             newPageView.frame = frame
-            scrollView.addSubview(newPageView)
+            goalImageView.image = pageImages[page]
+            //scrollViewContent.addSubview(newPageView)
             
             
             // 4

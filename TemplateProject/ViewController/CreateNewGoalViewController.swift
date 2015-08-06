@@ -35,7 +35,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        datePicker.hidden = true
         let tapRec = UITapGestureRecognizer()
         tapRec.addTarget(self, action: "tappedView:")
         imageView.addGestureRecognizer(tapRec)

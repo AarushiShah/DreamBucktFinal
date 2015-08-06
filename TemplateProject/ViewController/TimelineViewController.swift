@@ -30,6 +30,24 @@ class TimelineViewController: UIViewController,Likes {
             (result: [AnyObject]?, error: NSError?) -> Void in
             self.goals = result as? [Goal] ?? []
             
+            if self.goals.count == 0 {
+                let alertController = UIAlertController(title: nil, message: "No Posts for Timeline", preferredStyle: .Alert)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                alertController.addAction(cancelAction)
+                
+                let addGoalAction = UIAlertAction(title: "Add Friends", style: .Default) { (action) in
+                   // let tabbar = UITabBarw()//if declare and initilize like this
+                    
+                   // tabbar.selectedItem = tabbar.items![3] as? UITabBarItem
+                    //self.performSegueWithIdentifier("friends", sender: self)
+                }
+                alertController.addAction(addGoalAction)
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+
+            }
+            
             for eachgoal in self.goals {
                 
                 let data = eachgoal.imageFile?.getData()
@@ -102,9 +120,9 @@ extension TimelineViewController: UITableViewDataSource {
         cell.goal = goals[indexPath.row]
         numOfLikes = goals[indexPath.row].fetchLikes()
         println("\(numOfLikes) \(indexPath.row)")
-        cell.commentButton.selectCom = indexPath.row
         cell.likesLabel.text = "\(numOfLikes.count)"
         cell.likesArray = numOfLikes
+        cell.commentButton.selectCom = indexPath.row
         cell.viewLikesButton.selectCom = indexPath.row
         dictionaryOfLikes[indexPath.row] = numOfLikes
         println("num of likes \(numOfLikes.count)")
