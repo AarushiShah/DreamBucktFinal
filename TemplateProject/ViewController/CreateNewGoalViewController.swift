@@ -8,6 +8,7 @@
 
 import UIKit
 import QuartzCore
+import Mixpanel
 
 class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRatingViewDelegate {
 
@@ -24,6 +25,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     var goalRating: Float? = 1
     var photoTakingHelper:PhotoTakingHelper?
     var proceed: Bool = false
+    var finalGoal = Goal()
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -118,7 +120,6 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     @IBAction func saveButtonPressed(sender: AnyObject) {
         
         if (imageView.image != nil) {
-            performSegueWithIdentifier("mySegue", sender: nil)
             let goal = Goal()
             goal.goalDescription = descriptionTextField!.text
             goal.title = titleTextField.text
@@ -128,7 +129,12 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
             goal.starRating = goalRating!
             goal.accomplished = false
             goal.image = imageView.image
+            finalGoal = goal
+            performSegueWithIdentifier("mySegue", sender: nil)
             goal.uploadGoal()
+            
+            let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+            mixpanel.track("Goal Created", properties:["StarRating" : goalRating!])
         } else {
             proceed = false
             let alertController = UIAlertController(title: nil, message: "Please Add an Image", preferredStyle: .Alert)
@@ -150,6 +156,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
                 displayGoal.titleString = titleTextField.text
                 displayGoal.goalString = descriptionTextField!.text
                 displayGoal.starRating = goalRating
+                displayGoal.goal = finalGoal
                 if(dateLabel.text != "Set Goal Date") {
                     displayGoal.dateString = dateLabel.text!
                 }

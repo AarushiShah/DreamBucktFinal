@@ -110,6 +110,12 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
         performSegueWithIdentifier("profile", sender: nil)
     }
     
+    @IBAction func myProfile(sender: AnyObject) {
+        let user = PFUser.currentUser() as PFUser!
+        selecteduser = user
+        selectedimage = user["profileImage"] as? UIImage
+        performSegueWithIdentifier("profile", sender: nil)
+    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         var profileVC: ProfileViewController = segue.destinationViewController as! ProfileViewController

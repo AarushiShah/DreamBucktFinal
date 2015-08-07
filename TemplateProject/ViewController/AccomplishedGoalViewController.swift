@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mixpanel
 
 class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
 
@@ -28,6 +29,9 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
         
         addEmptyImages()
         reloadScrollView()
+        
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("Goal Accomplished")
 
 
     }

@@ -31,9 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 // if login was successful, display the TabBarController
                 // 2
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UIViewController
+                let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
                 // 3
-                self.window?.rootViewController!.presentViewController(tabBarController, animated:true, completion:nil)
+                //self.window?.rootViewController!.presentViewController(tabBarController, animated:true, completion:nil)
+                self.window?.rootViewController = tabBarController
+                self.window?.makeKeyAndVisible()
+
             }
         }
     }

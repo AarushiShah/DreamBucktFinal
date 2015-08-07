@@ -134,18 +134,7 @@ extension TimelineViewController: UITableViewDataSource {
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let cell = tableView.dequeueReusableCellWithIdentifier("GoalCell") as! GoalTableViewCell
-//        
-//        if indexPath.row == currentRow {
-//            if cellTapped == false {
-//                cellTapped = true
-//                return 141
-//            } else {
-//                cellTapped = false
-//                return 70
-//            }
-//        }
-//        return 70
-//    }
+
         return 320
     }
 }

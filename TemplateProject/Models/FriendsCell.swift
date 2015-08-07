@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Mixpanel
 
 class FriendsCell: UICollectionViewCell {
     
@@ -37,6 +38,9 @@ class FriendsCell: UICollectionViewCell {
                 ParseHelper.addFriendRelationshipFromUser(PFUser.currentUser()!, toUser: user!)
                 ParseHelper.addFriendRelationshipFromUser(user!, toUser: PFUser.currentUser()!)
                 friend = true
+                
+                let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+                mixpanel.track("Friend Added", properties: ["Friend":user!])
         }
     }
 }

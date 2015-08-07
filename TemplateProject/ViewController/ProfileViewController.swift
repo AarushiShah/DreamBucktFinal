@@ -9,9 +9,11 @@
 import UIKit
 import Parse
 import ParseUI
+//import Mixpanel
 
 class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate  {
 
+    @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var friendsButton: UIButton! //button to display number of friends user has
@@ -20,7 +22,7 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
     @IBOutlet weak var quoteLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     
-    
+    var photoTakingHelper:PhotoTakingHelper?
     var user: PFUser!
     var numberOfFriends:Int?
     var friend: Bool = false
@@ -36,6 +38,9 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
     
     override func viewDidLoad() {
         
+       // let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        //mixpanel.track("Profile Viewed", properties: ["User":user!])
+        
         tableView.hidden = true
         usernameLabel.text = user.username
         quoteLabel.text = user["quote"] as? String
@@ -46,6 +51,16 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
         profileImageView.layer.borderColor = UIColor.whiteColor().CGColor
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
+        
+        if user != PFUser.currentUser() {
+            logoutButton.hidden = true
+
+        } else {
+            let tapRec = UITapGestureRecognizer()
+            tapRec.addTarget(self, action: "tappedView:")
+            profileImageView.addGestureRecognizer(tapRec)
+            profileImageView.userInteractionEnabled = true
+        }
         
         ParseHelper.getFriendsForUser(user) {
             (results: [AnyObject]?, error: NSError?) -> Void in
@@ -113,6 +128,13 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
             friend = true
         }
 
+        
+    }
+    func tappedView(sender:UITapGestureRecognizer) {
+        photoTakingHelper = PhotoTakingHelper(viewController: self) { (image: UIImage?) in
+            
+            self.profileImageView.image = image
+        }
         
     }
     @IBAction func unwindToSegue(segue: UIStoryboardSegue){
