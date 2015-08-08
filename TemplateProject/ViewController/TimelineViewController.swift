@@ -123,6 +123,7 @@ extension TimelineViewController: UITableViewDataSource {
         cell.likesLabel.text = "\(numOfLikes.count)"
         cell.likesArray = numOfLikes
         cell.commentButton.selectCom = indexPath.row
+        cell.commentButton.hidden = true
         cell.viewLikesButton.selectCom = indexPath.row
         dictionaryOfLikes[indexPath.row] = numOfLikes
         println("num of likes \(numOfLikes.count)")
