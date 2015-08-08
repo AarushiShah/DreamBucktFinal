@@ -133,6 +133,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
             performSegueWithIdentifier("mySegue", sender: nil)
             goal.uploadGoal()
             
+            Mixpanel.sharedInstanceWithToken("46ebc5702d4346b9a6b91b32153cd1bc")
             let mixpanel: Mixpanel = Mixpanel.sharedInstance()
             mixpanel.track("Goal Created", properties:["StarRating" : goalRating!])
         } else {

@@ -39,8 +39,9 @@ class FriendsCell: UICollectionViewCell {
                 ParseHelper.addFriendRelationshipFromUser(user!, toUser: PFUser.currentUser()!)
                 friend = true
                 
+                Mixpanel.sharedInstanceWithToken("46ebc5702d4346b9a6b91b32153cd1bc")
                 let mixpanel: Mixpanel = Mixpanel.sharedInstance()
-                mixpanel.track("Friend Added", properties: ["Friend":user!])
+                mixpanel.track("Friend Added")
         }
     }
 }

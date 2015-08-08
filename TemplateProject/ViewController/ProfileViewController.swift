@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 import ParseUI
-//import Mixpanel
+import Mixpanel
 
 class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate  {
 
@@ -38,8 +38,9 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
     
     override func viewDidLoad() {
         
-       // let mixpanel: Mixpanel = Mixpanel.sharedInstance()
-        //mixpanel.track("Profile Viewed", properties: ["User":user!])
+        Mixpanel.sharedInstanceWithToken("46ebc5702d4346b9a6b91b32153cd1bc")
+       let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("Profile Viewed")
         
         tableView.hidden = true
         usernameLabel.text = user.username

@@ -30,7 +30,8 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
         addEmptyImages()
         reloadScrollView()
         
-        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+       Mixpanel.sharedInstanceWithToken("46ebc5702d4346b9a6b91b32153cd1bc")
+       let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         mixpanel.track("Goal Accomplished")
 
 

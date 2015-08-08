@@ -39,7 +39,10 @@ class VisionboardViewController: UIViewController {
                     let image = UIImage(data:imageData!)
                     self.visionboardImageView.image = image
                     self.paintToolBar.hidden = true
-                
+                    self.editButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                    self.createNew.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                   self.editButton.hidden = true
+
                // }
             }
         } else {
@@ -102,6 +105,7 @@ class VisionboardViewController: UIViewController {
     @IBAction func handleTapGesture(gesture: UITapGestureRecognizer) {
         var point = gesture.locationInView(colorWheel)
         self.container.backgroundColor = colorWheel.colorAtPoint(point)
+        println(self.container.backgroundColor)
         //self.container!.backgroundColor = colorWheel.colorAtPoint(point)
     }
     @IBAction func addPicture(sender: AnyObject) {
@@ -148,7 +152,7 @@ class VisionboardViewController: UIViewController {
         self.visionboardImageView.image = screenshot
         visionboardImageView.hidden = false
         self.paintToolBar.hidden = true
-        self.editButton.hidden = false
+        self.editButton.hidden = true
         createNew.hidden = false
         eraseEverything()
     }
@@ -180,6 +184,9 @@ class VisionboardViewController: UIViewController {
         let imageFile = PFFile(data: imageData)
         newUser!.setObject(imageFile, forKey: "visionboardImage")
         newUser!.saveInBackground()
+        
+        self.editButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.createNew.setTitleColor(UIColor.blackColor(), forState: .Normal)
         
         return image
 
