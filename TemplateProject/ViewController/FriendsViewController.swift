@@ -43,10 +43,10 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
                                 var profileImage = UIImage(data: data!, scale:1.0)
                                 self.tableImages.append(profileImage!)
                         } else {
-                                self.tableImages.append(UIImage(named: "photo3.png")!)
+                                self.tableImages.append(UIImage(named: "User Image")!)
                         }
                 } else {
-                    self.tableImages.append(UIImage(named: "photo3.png")!)
+                    self.tableImages.append(UIImage(named: "User Image")!)
                 }
                 
 
@@ -113,7 +113,23 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBAction func myProfile(sender: AnyObject) {
         let user = PFUser.currentUser() as PFUser!
         selecteduser = user
-        selectedimage = user["profileImage"] as? UIImage
+        
+        var image: AnyObject? = PFUser.currentUser()?.objectForKey("profileImage")
+        if (image != nil) {
+            let data = image!.getData()
+            
+            if (data != nil) {
+                var profileImage = UIImage(data: data!, scale:1.0)
+                selectedimage = profileImage
+            } else {
+                selectedimage = (UIImage(named: "User Image")!)
+            }
+        } else {
+             selectedimage = (UIImage(named: "User Image")!)
+    }
+
+        
+        //selectedimage = user["profileImage"] as? UIImage
         performSegueWithIdentifier("profile", sender: nil)
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)

@@ -34,15 +34,15 @@ class GoalOverviewViewController: UIViewController, UICollectionViewDataSource, 
             let goal = results as? [Goal] ?? []
             
             if goal.count == 0  {
-                let alertController = UIAlertController(title: nil, message: "No Goals in this category", preferredStyle: .Alert)
+                let alertController = UIAlertController(title: nil, message: "No Goals in this category, Create New Goal First", preferredStyle: .Alert)
                 
                 let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
                 alertController.addAction(cancelAction)
-                
-                let addGoalAction = UIAlertAction(title: "Create New Goal", style: .Default) { (action) in
-                    self.presentViewController(CreateNewGoalViewController(), animated: true, completion: nil)
-                }
-                alertController.addAction(addGoalAction)
+//                
+//                let addGoalAction = UIAlertAction(title: "Create New Goal", style: .Default) { (action) in
+//                    self.presentViewController(CreateNewGoalViewController(), animated: true, completion: nil)
+//                }
+//                alertController.addAction(addGoalAction)
                 
                 self.presentViewController(alertController, animated: true, completion: nil)
             }
@@ -108,6 +108,7 @@ class GoalOverviewViewController: UIViewController, UICollectionViewDataSource, 
             displayVC.starRating = selectedGoal.starRating
             displayVC.goal = selectedGoal
             displayVC.singleImage = passOnImage!
+            displayVC.linkString = selectedGoal.externalLink!
             
         }
     }

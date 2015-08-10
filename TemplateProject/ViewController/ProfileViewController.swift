@@ -138,8 +138,11 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
         }
         
     }
-    @IBAction func unwindToSegue(segue: UIStoryboardSegue){
-        
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if PFUser.currentUser() == user {
+            ParseHelper.updateImage(profileImageView.image!)
+            
+        }
     }
     @IBAction func logoutAction(sender: AnyObject) {
         PFUser.logOut()

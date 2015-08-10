@@ -12,14 +12,15 @@ import Mixpanel
 
 class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRatingViewDelegate {
 
+    @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var descriptionTextField: UITextView!
-    @IBOutlet weak var linksTextField: UITextField!
     @IBOutlet weak var setGoalDate: UIButton!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var floatRatingView: FloatRatingView!
+    @IBOutlet weak var linksTextField: UITextField!
 
     var popViewController : PopUpViewControllerSwift!
     var goalRating: Float? = 1
@@ -37,7 +38,11 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dateButton.hidden = true
+        dateLabel.hidden = true
         datePicker.hidden = true
+        descriptionTextField.layer.borderWidth = 1.0
+        descriptionTextField.layer.borderColor = UIColor.blackColor().CGColor
         let tapRec = UITapGestureRecognizer()
         tapRec.addTarget(self, action: "tappedView:")
         imageView.addGestureRecognizer(tapRec)
@@ -158,6 +163,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
                 displayGoal.goalString = descriptionTextField!.text
                 displayGoal.starRating = goalRating
                 displayGoal.goal = finalGoal
+                displayGoal.linkString = linksTextField.text
                 if(dateLabel.text != "Set Goal Date") {
                     displayGoal.dateString = dateLabel.text!
                 }

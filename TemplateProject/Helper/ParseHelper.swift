@@ -11,6 +11,7 @@ import Parse
 
 class ParseHelper {
    
+   static var photoUploadTask: UIBackgroundTaskIdentifier?
     // User Relation
     static let ParseUserUsername      = "username"
     static let ParseUserClass      = "User"
@@ -215,6 +216,26 @@ class ParseHelper {
         flagObject.setObject(goal, forKey: ParseFlagToPost)
         flagObject.setObject(message, forKey: ParseFlageMessage)
         flagObject.saveInBackgroundWithBlock(nil)
+    }
+    
+    static func updateImage(image: UIImage) {
+        let imageData = UIImageJPEGRepresentation(image, 0.8)
+       var profileImage = PFFile(data:imageData)
+        photoUploadTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler{ () -> Void in
+            
+            UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
+        }
+        
+        profileImage.saveInBackgroundWithBlock { (succes: Bool, error: NSError?) -> Void in
+            UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
+        }
+        
+        PFUser.currentUser()?.setObject(profileImage, forKey: "profileImage")
+        
+        PFUser.currentUser()!.saveInBackgroundWithBlock{ (success: Bool, error: NSError?) -> Void in
+            println("save succesfully")
+        }
+
     }
     
 }

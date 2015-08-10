@@ -20,8 +20,8 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var date: UILabel?
     @IBOutlet weak var scrollViewContent: UIView!
     @IBOutlet weak var likesLabel: UIButton!
-    @IBOutlet weak var link: UILabel?
     @IBOutlet weak var floatRatingView: FloatRatingView!
+    @IBOutlet weak var link: UILabel!
     @IBOutlet weak var goalDescription: UITextView!
     @IBOutlet weak var goalImageView: UIImageView!
     @IBOutlet weak var background: UIImageView!
@@ -114,6 +114,9 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
         }
         if (dateString != "") {
             date!.text = dateString
+        }
+        if (linkString != "") {
+            link!.text = linkString
         }
         // 1
         pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
