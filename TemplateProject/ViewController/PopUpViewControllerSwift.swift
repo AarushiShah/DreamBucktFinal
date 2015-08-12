@@ -1,3 +1,4 @@
+
 //
 //  PopUpViewControllerSwift.swift
 //  NMPopUpView
@@ -11,7 +12,7 @@ import QuartzCore
 @objc class PopUpViewControllerSwift : UIViewController {
     
     @IBOutlet weak var popUpView: UIView!
-   // @IBOutlet weak var messageLabel: UILabel!
+    // @IBOutlet weak var messageLabel: UILabel!
     //@IBOutlet weak var logoImg: UIImageView!
     @IBOutlet weak var dateView: UIDatePicker!
     var presentingVC: CreateNewGoalViewController!
@@ -30,17 +31,17 @@ import QuartzCore
         self.popUpView.layer.cornerRadius = 5
         self.popUpView.layer.shadowOpacity = 0.8
         self.popUpView.layer.shadowOffset = CGSizeMake(0.0, 0.0)
-       
+        
     }
     
     func showInView(aView: UIView!, withImage image : UIImage!, withMessage message: String!, withDatePicker date: UIDatePicker!, animated: Bool)
     {
         aView.addSubview(self.view)
-       // logoImg!.image = image
-       // messageLabel!.text = message
+        // logoImg!.image = image
+        // messageLabel!.text = message
         dateView = date
         let currentDate = NSDate()
-       dateView.maximumDate = NSDate()
+        dateView.maximumDate = NSDate()
         
         if animated
         {
@@ -82,6 +83,6 @@ import QuartzCore
         presentingVC.setDate(date)
         
         self.removeAnimate()
-
+        
     }
 }

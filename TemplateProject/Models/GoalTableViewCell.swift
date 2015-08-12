@@ -107,6 +107,9 @@ class GoalTableViewCell: UITableViewCell {
 
     }
     
+    @IBAction func commentButtonTapped(sender: AnyObject) {
+        viewController?.numComments(commentButton.selectCom)
+    }
     @IBAction func likeButtonTapped(sender: AnyObject) {
         
         goal?.toggleLikePost(PFUser.currentUser()!)
@@ -116,4 +119,5 @@ class GoalTableViewCell: UITableViewCell {
 
 protocol Likes {
     func numLikes(number: Int) -> Void
+    func numComments(number: Int) -> Void
 }

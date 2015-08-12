@@ -23,6 +23,7 @@ class VisionboardViewController: UIViewController {
     @IBOutlet weak var visionboardImageView: UIImageView!
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var paintToolBar: UIToolbar!
+    @IBOutlet weak var recentVisionLabel: UILabel!
     @IBOutlet weak var colorWheel: ColorWheel!
     @IBOutlet weak var createNew: UIButton!
     
@@ -39,9 +40,11 @@ class VisionboardViewController: UIViewController {
                     let image = UIImage(data:imageData!)
                     self.visionboardImageView.image = image
                     self.paintToolBar.hidden = true
-                    self.editButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-                    self.createNew.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                    self.editButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+                    self.createNew.setTitleColor(UIColor.blackColor(), forState: .Normal)
                    self.editButton.hidden = true
+                self.recentVisionLabel.hidden = false
+                self.recentVisionLabel.textColor = UIColor.blackColor()
 
                // }
             }
@@ -50,6 +53,7 @@ class VisionboardViewController: UIViewController {
             paintToolBar.hidden = false
             visionboardImageView.hidden = true
             createNew.hidden = true
+            recentVisionLabel.hidden = true
         }
         
         colorWheel.hidden = true
@@ -76,6 +80,7 @@ class VisionboardViewController: UIViewController {
         paintToolBar.hidden = false
         createNew.hidden = true
         visionboardImageView.userInteractionEnabled = true
+        recentVisionLabel.hidden = true
 
     }
     @IBAction func createNewVisionboard(sender: AnyObject) {
@@ -83,6 +88,7 @@ class VisionboardViewController: UIViewController {
         createNew.hidden = true
         visionboardImageView.hidden = true
         paintToolBar.hidden = false
+        container.backgroundColor = UIColor.whiteColor()
         view.backgroundColor = UIColor.whiteColor()
         eraseEverything()
     }
@@ -187,15 +193,22 @@ class VisionboardViewController: UIViewController {
         
         self.editButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
         self.createNew.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        self.recentVisionLabel.hidden = false
+        self.recentVisionLabel.textColor = UIColor.blackColor()
         
         return image
-
-    }
+        
+}
+    
+    
     @IBAction func addTextField(sender: AnyObject) {
         var textBoxObject:UITextField?
-        textBoxObject = UITextField(frame:CGRectMake(50, 150, 300, 50))
+        textBoxObject = UITextField(frame:CGRectMake(50, 150, 250, 50))
+        textBoxObject!.textAlignment = .Center
         self.addGestures(textBoxObject!)
-        textBoxObject?.backgroundColor = UIColor.redColor()
+        //textBoxObject?.backgroundColor = UIColor.redColor()
+        textBoxObject?.layer.borderColor = UIColor.blackColor().CGColor
+        textBoxObject?.layer.borderWidth = 2.0
         self.container!.addSubview(textBoxObject!)
         // textBoxObject!.delegate = self
         self.collageTextBoxes.append(textBoxObject!)

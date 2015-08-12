@@ -82,6 +82,10 @@ class ParseHelper {
         
         
     }
+    static func saveMotivationalQuote(quote: String) {
+            let currentUser = PFUser.currentUser()
+            PFUser.currentUser()?.setObject(quote, forKey: "quote")
+    }
     static func getFriendsForUser(user:PFUser, completionBlock: PFArrayResultBlock ){
         
         let query = PFQuery(className: "Friend")

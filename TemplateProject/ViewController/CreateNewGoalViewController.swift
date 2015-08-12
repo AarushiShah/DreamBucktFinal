@@ -9,6 +9,8 @@
 import UIKit
 import QuartzCore
 import Mixpanel
+import Accelerate
+
 
 class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRatingViewDelegate {
 
@@ -21,6 +23,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var floatRatingView: FloatRatingView!
     @IBOutlet weak var linksTextField: UITextField!
+    //var popUp: btSimplePopUP!
 
     var popViewController : PopUpViewControllerSwift!
     var goalRating: Float? = 1
@@ -38,8 +41,6 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dateButton.hidden = true
-        dateLabel.hidden = true
         datePicker.hidden = true
         descriptionTextField.layer.borderWidth = 1.0
         descriptionTextField.layer.borderColor = UIColor.blackColor().CGColor
@@ -117,8 +118,6 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
                 self.popViewController.showInView(self.view, withImage: UIImage(named: "typpzDemo"), withMessage: "You just triggered a great popup window", withDatePicker : datePicker!, animated: true)
             }
         }
-
-
         
     }
 

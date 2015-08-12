@@ -32,8 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 // 2
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
-                // 3
-                //self.window?.rootViewController!.presentViewController(tabBarController, animated:true, completion:nil)
+               // // 3
+              //  self.window?.rootViewController!.presentViewController(tabBarController, animated:true, completion:nil)
                 self.window?.rootViewController = tabBarController
                 self.window?.makeKeyAndVisible()
 
@@ -78,6 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         // 5
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+         //self.window?.rootViewController!.presentViewController(startViewController, animated:true, completion:nil)
         self.window?.rootViewController = startViewController;
         self.window?.makeKeyAndVisible()
     

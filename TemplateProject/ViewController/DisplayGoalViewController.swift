@@ -73,6 +73,8 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        likesLabel.hidden = true
+        likeButton.hidden = true
         if (goal?.accomplished == true) {
             accomplishButton.setImage(UIImage(named:"Accomplished"), forState: .Normal)
             accomplished = true
@@ -108,6 +110,8 @@ class DisplayGoalViewController: UIViewController, UIScrollViewDelegate {
         }
         if (goalString != "") {
             goalDescription?.text = goalString
+        } else {
+             goalDescription?.text = ""
         }
         if (linkString != "") {
             link?.text = linkString

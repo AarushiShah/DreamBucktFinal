@@ -15,16 +15,26 @@ class TimelineViewController: UIViewController,Likes {
     //@IBOutlet weak var viewLikesButton: CommentButton!
 
     var goals: [Goal] = []
+    var refreshControl: UIRefreshControl!
     var users: [PFUser] = []
     var numOfLikes: [PFUser] = []
     var cellTapped:Bool = true
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var likes: Int = 0
+    var commentsIndex: Int = 0
+    var goalIndex: Int = 0
     var dictionaryOfLikes = [Int: [PFUser]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        timelineRequest()
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "timelineRequest", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
         
+    }
+    
+    func timelineRequest() {
         activityIndicator.startAnimating()
         ParseHelper.timelineRequestforCurrentUser {
             (result: [AnyObject]?, error: NSError?) -> Void in
@@ -36,16 +46,16 @@ class TimelineViewController: UIViewController,Likes {
                 let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
                 alertController.addAction(cancelAction)
                 
-//                let addGoalAction = UIAlertAction(title: "Add Friends", style: .Default) { (action) in
-//                   // let tabbar = UITabBarw()//if declare and initilize like this
-//                    
-//                   // tabbar.selectedItem = tabbar.items![3] as? UITabBarItem
-//                    //self.performSegueWithIdentifier("friends", sender: self)
-//                }
-//                alertController.addAction(addGoalAction)
+                //                let addGoalAction = UIAlertAction(title: "Add Friends", style: .Default) { (action) in
+                //                   // let tabbar = UITabBarw()//if declare and initilize like this
+                //
+                //                   // tabbar.selectedItem = tabbar.items![3] as? UITabBarItem
+                //                    //self.performSegueWithIdentifier("friends", sender: self)
+                //                }
+                //                alertController.addAction(addGoalAction)
                 
                 self.presentViewController(alertController, animated: true, completion: nil)
-
+                
             }
             
             for eachgoal in self.goals {
@@ -61,7 +71,8 @@ class TimelineViewController: UIViewController,Likes {
             }
             self.tableView.reloadData()
             self.activityIndicator.stopAnimating()
-        }
+       }
+        self.refreshControl?.endRefreshing()
 
     }
     
@@ -75,10 +86,12 @@ class TimelineViewController: UIViewController,Likes {
         
         
     }
-    @IBAction func commentButtonTapped(sender: AnyObject) {
-        
-        tableView.beginUpdates()
-        tableView.endUpdates()
+    
+    func numComments(number: Int) {
+        commentsIndex = number
+        performSegueWithIdentifier("showComments", sender: self)
+    }
+    @IBAction func unwindToSegue(segue: UIStoryboardSegue) {
         
     }
 
@@ -87,12 +100,34 @@ class TimelineViewController: UIViewController,Likes {
             var likesVC: ViewLikesViewController = segue.destinationViewController as! ViewLikesViewController
             println(dictionaryOfLikes[likes]!)
             likesVC.likes = dictionaryOfLikes[likes]!
+        } else if segue.identifier == "showComments" {
+            
+             var selectedGoal = goals[commentsIndex]
+            let commentDetailVC = segue.destinationViewController as! CommentDisplayViewController
+            
+            commentDetailVC.goal = selectedGoal
+        } else if segue.identifier == "displayGoal" {
+            var selectedGoal = goals[goalIndex]
+            
+            let displayVC = segue.destinationViewController as! DisplayGoalViewController
+            
+            var displayGoal: DisplayGoalViewController = segue.destinationViewController as! DisplayGoalViewController
+            
+            displayVC.titleString = selectedGoal.title!
+            displayVC.goalString = selectedGoal.goalDescription!
+            displayVC.starRating = selectedGoal.starRating
+            displayVC.goal = selectedGoal
+            displayVC.singleImage = selectedGoal.image!
+            displayVC.linkString = selectedGoal.externalLink!
+
         }
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
     
     
     
@@ -123,7 +158,7 @@ extension TimelineViewController: UITableViewDataSource {
         cell.likesLabel.text = "\(numOfLikes.count)"
         cell.likesArray = numOfLikes
         cell.commentButton.selectCom = indexPath.row
-        cell.commentButton.hidden = true
+        cell.viewLikesButton.hidden = true
         cell.viewLikesButton.selectCom = indexPath.row
 
         dictionaryOfLikes[indexPath.row] = numOfLikes
@@ -138,6 +173,13 @@ extension TimelineViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("GoalCell") as! GoalTableViewCell
 
         return 320
+    }
+}
+
+extension TimelineViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        goalIndex = indexPath.row
     }
 }
 

@@ -13,6 +13,7 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet weak var shareableSwitch: UISwitch!
+    @IBOutlet weak var addButton: UIButton!
     
     var goal: Goal?
     var photoTakingHelper:PhotoTakingHelper?
@@ -29,7 +30,11 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
         
         addEmptyImages()
         reloadScrollView()
+        pageControl.hidden = true
         
+        scrollView.layer.borderColor = UIColor.blackColor().CGColor
+        scrollView.layer.borderWidth = 2.5
+
        Mixpanel.sharedInstanceWithToken("46ebc5702d4346b9a6b91b32153cd1bc")
        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         mixpanel.track("Goal Accomplished")
@@ -100,6 +105,7 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
            var currentPage = self.pageControl.currentPage
            self.pageImages[currentPage] = image!
           self.uploadingImage = image
+           self.addButton.hidden = true
             self.reloadScrollView()
         }
 
@@ -127,8 +133,13 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
             let tapRec = UITapGestureRecognizer()
             tapRec.addTarget(self, action: "tappedView:")
             newPageView.addGestureRecognizer(tapRec)
-            newPageView.backgroundColor = UIColor.blackColor()
+            newPageView.backgroundColor = UIColor.whiteColor()
+        
+        newPageView.layer.borderColor = UIColor.blackColor().CGColor
+        newPageView.layer.borderWidth = 5.0
+        
 
+        
             newPageView.frame = frame
             scrollView.addSubview(newPageView)
             
@@ -185,6 +196,7 @@ class AccomplishedGoalViewController: UIViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 
+    
     
 
 }

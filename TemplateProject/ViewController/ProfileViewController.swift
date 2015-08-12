@@ -15,12 +15,14 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
 
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var friendsButton: UIButton! //button to display number of friends user has
     @IBOutlet weak var bucketButton: UIButton!
     @IBOutlet weak var friendButton: UIButton! //buton to add/delete friend
     @IBOutlet weak var quoteLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var quoteTextField: UITextField!
     
     var photoTakingHelper:PhotoTakingHelper?
     var user: PFUser!
@@ -34,11 +36,13 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
     var selectedimage:UIImage!
     var profileImages = [UIImage]()
     var userArray = [PFUser]()
+    var editClicked: Int = 0
     
     
     override func viewDidLoad() {
         
-        Mixpanel.sharedInstanceWithToken("46ebc5702d4346b9a6b91b32153cd1bc")
+         quoteTextField.hidden = true
+    Mixpanel.sharedInstanceWithToken("46ebc5702d4346b9a6b91b32153cd1bc")
        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         mixpanel.track("Profile Viewed")
         
@@ -55,12 +59,14 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
         
         if user != PFUser.currentUser() {
             logoutButton.hidden = true
+            editButton.hidden = true
 
         } else {
             let tapRec = UITapGestureRecognizer()
             tapRec.addTarget(self, action: "tappedView:")
             profileImageView.addGestureRecognizer(tapRec)
             profileImageView.userInteractionEnabled = true
+            friendButton.hidden = true
         }
         
         ParseHelper.getFriendsForUser(user) {
@@ -102,6 +108,27 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
 
         
     }
+    
+    @IBAction func editButtonTapped(sender: AnyObject) {
+        editClicked++
+        
+        if editClicked % 2 == 0 {
+            editButton.setTitle("EDIT", forState: .Normal)
+            quoteTextField.hidden = true
+            quoteLabel.text = quoteTextField.text
+            ParseHelper.saveMotivationalQuote(quoteTextField.text)
+            
+        } else {
+            editButton.setTitle("SAVE", forState: .Normal)
+            quoteTextField.hidden = false
+            if quoteLabel.text != "" {
+                quoteTextField.text = quoteLabel.text
+            }
+            
+            
+        }
+    }
+    
   
     @IBAction func viewFriendsButtonTapped(sender: AnyObject) {
         tableView.hidden = false
@@ -141,6 +168,10 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if PFUser.currentUser() == user {
             ParseHelper.updateImage(profileImageView.image!)
+            
+            if editClicked % 2 != 0 {
+                ParseHelper.saveMotivationalQuote(quoteTextField.text)
+            }
             
         }
     }
