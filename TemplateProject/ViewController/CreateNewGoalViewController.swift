@@ -112,7 +112,7 @@ class CreateNewGoalViewController: UIViewController, UITextFieldDelegate,FloatRa
                     self.popViewController.showInView(self.view, withImage: UIImage(named: "typpzDemo"), withMessage: "You just triggered a great popup window", withDatePicker : datePicker!, animated: true)
                 }
             } else {
-                self.popViewController = PopUpViewControllerSwift(nibName: "PopUpViewController", bundle: nil)
+                self.popViewController = PopUpViewControllerSwift(nibName: "View", bundle: nil)
                 self.popViewController.title = "This is a popup view"
                 self.popViewController.presentingVC = self
                 self.popViewController.showInView(self.view, withImage: UIImage(named: "typpzDemo"), withMessage: "You just triggered a great popup window", withDatePicker : datePicker!, animated: true)

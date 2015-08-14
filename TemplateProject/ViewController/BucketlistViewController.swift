@@ -25,29 +25,29 @@ class BucketlistViewController: UIViewController {
     }
     @IBAction func buttonOne(sender: AnyObject) {
         selectedStar = 1
-        selectedStarString = "One Star Goals"
+        selectedStarString = "One Star Dreams"
         performSegueWithIdentifier("goalOverview", sender: nil)
     }
     @IBAction func buttonTwo(sender: AnyObject) {
         selectedStar = 2
-         selectedStarString = "Two Star Goals"
+         selectedStarString = "Two Star Dreams"
         performSegueWithIdentifier("goalOverview", sender: nil)
     }
     @IBAction func buttonThree(sender: AnyObject) {
         selectedStar = 3
-         selectedStarString = "Three Star Goals"
+         selectedStarString = "Three Star Dreams"
         performSegueWithIdentifier("goalOverview", sender: nil)
     }
     
     @IBAction func buttonFour(sender: AnyObject) {
         selectedStar = 4
-         selectedStarString = "Four Star Goals"
+         selectedStarString = "Four Star Dreams"
         performSegueWithIdentifier("goalOverview", sender: nil)
     }
     
     @IBAction func buttonFive(sender: AnyObject) {
         selectedStar = 5
-         selectedStarString = "Five Star Goals"
+         selectedStarString = "Five Star Dreams"
         performSegueWithIdentifier("goalOverview", sender: nil)
     }
     

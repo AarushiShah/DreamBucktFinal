@@ -54,9 +54,11 @@
 		4E8347631B7A894D0055A8B8 /* CommentDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8347621B7A894D0055A8B8 /* CommentDisplayViewController.swift */; };
 		4E8347651B7A8ABA0055A8B8 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8347641B7A8ABA0055A8B8 /* CommentTableViewCell.swift */; };
 		4E8347671B7AA9990055A8B8 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E8347661B7AA9990055A8B8 /* View.xib */; };
+		4E8347691B7D3F0D0055A8B8 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8347681B7D3F0D0055A8B8 /* HelpViewController.swift */; };
 		4EA399741B62B7EC00172B13 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA399731B62B7EC00172B13 /* FloatRatingView.swift */; };
 		4EAECDB01B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAECDAF1B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift */; };
 		4EAECDB81B7036B0007EAFB1 /* ViewLikesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAECDB71B7036B0007EAFB1 /* ViewLikesViewController.swift */; };
+		4EE54ED31B7E572F005D56C3 /* PushNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE54ED21B7E572F005D56C3 /* PushNotificationController.swift */; };
 		4EFD46471B66A36500871157 /* GoalOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD46461B66A36500871157 /* GoalOverviewViewController.swift */; };
 		4EFD464F1B66A4CE00871157 /* GoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD464E1B66A4CE00871157 /* GoalCell.swift */; };
 		4EFD46531B66AD0B00871157 /* PopUpViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EFD46501B66AD0B00871157 /* PopUpViewController_iPad.xib */; };
@@ -229,9 +231,11 @@
 		4E8347621B7A894D0055A8B8 /* CommentDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentDisplayViewController.swift; sourceTree = "<group>"; };
 		4E8347641B7A8ABA0055A8B8 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		4E8347661B7AA9990055A8B8 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
+		4E8347681B7D3F0D0055A8B8 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		4EA399731B62B7EC00172B13 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		4EAECDAF1B6F030D007EAFB1 /* UsersFriendsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersFriendsTableViewCell.swift; sourceTree = "<group>"; };
 		4EAECDB71B7036B0007EAFB1 /* ViewLikesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLikesViewController.swift; sourceTree = "<group>"; };
+		4EE54ED21B7E572F005D56C3 /* PushNotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationController.swift; sourceTree = "<group>"; };
 		4EFD46461B66A36500871157 /* GoalOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalOverviewViewController.swift; sourceTree = "<group>"; };
 		4EFD464E1B66A4CE00871157 /* GoalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalCell.swift; sourceTree = "<group>"; };
 		4EFD46501B66AD0B00871157 /* PopUpViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopUpViewController_iPad.xib; sourceTree = "<group>"; };
@@ -334,6 +338,7 @@
 				4E528E6F1B6BDCA5007155E6 /* AccomplishedGoalViewController.swift */,
 				4EAECDB71B7036B0007EAFB1 /* ViewLikesViewController.swift */,
 				4E8347621B7A894D0055A8B8 /* CommentDisplayViewController.swift */,
+				4E8347681B7D3F0D0055A8B8 /* HelpViewController.swift */,
 			);
 			name = ViewController;
 			path = TemplateProject/ViewController;
@@ -346,6 +351,7 @@
 				4E0C2EE61B617E1300AC45EA /* ParseHelper.swift */,
 				4E0C2EE71B617E1300AC45EA /* ParseLoginHelper.swift */,
 				4E528E6B1B6ADF3E007155E6 /* MethodHelper.swift */,
+				4EE54ED21B7E572F005D56C3 /* PushNotificationController.swift */,
 			);
 			name = Helper;
 			path = TemplateProject/Helper;
@@ -715,6 +721,7 @@
 				4E0C2EE91B617E1300AC45EA /* ParseHelper.swift in Sources */,
 				4E0C2ED71B617D5A00AC45EA /* DisplayGoalViewController.swift in Sources */,
 				4E0C2ED61B617D5A00AC45EA /* CustomSignUpViewController.swift in Sources */,
+				4EE54ED31B7E572F005D56C3 /* PushNotificationController.swift in Sources */,
 				4E0C2ED41B617D5A00AC45EA /* CreateNewGoalViewController.swift in Sources */,
 				4E0C2EA21B616E4700AC45EA /* PhotoTakingHelper.swift in Sources */,
 				4E528E6C1B6ADF3E007155E6 /* MethodHelper.swift in Sources */,
@@ -727,6 +734,7 @@
 				4E0C2ED31B617D5A00AC45EA /* BucketlistViewController.swift in Sources */,
 				4EFD46471B66A36500871157 /* GoalOverviewViewController.swift in Sources */,
 				4EAECDB81B7036B0007EAFB1 /* ViewLikesViewController.swift in Sources */,
+				4E8347691B7D3F0D0055A8B8 /* HelpViewController.swift in Sources */,
 				4E0C2EF41B617E6900AC45EA /* Scroll.swift in Sources */,
 				4E0C2ED81B617D5A00AC45EA /* FriendsViewController.swift in Sources */,
 				4E0C2EF51B617E6900AC45EA /* ScrollViewContainer.swift in Sources */,
@@ -872,6 +880,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TemplateProject/TemplateProject-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -895,6 +904,7 @@
 				PRODUCT_NAME = TemplateProject;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TemplateProject/TemplateProject-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

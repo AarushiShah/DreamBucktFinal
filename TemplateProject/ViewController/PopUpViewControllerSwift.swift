@@ -39,9 +39,9 @@ import QuartzCore
         aView.addSubview(self.view)
         // logoImg!.image = image
         // messageLabel!.text = message
-        dateView = date
-        let currentDate = NSDate()
-        dateView.maximumDate = NSDate()
+        dateView.date = date.date
+        //let currentDate = NSDate()
+        //dateView.maximumDate = NSDate()
         
         if animated
         {
@@ -79,6 +79,7 @@ import QuartzCore
         let dateFormatter = NSDateFormatter()
         var theDateFormat = NSDateFormatterStyle.ShortStyle
         dateFormatter.dateStyle = theDateFormat
+        println(dateView.date)
         var date = dateFormatter.stringFromDate(dateView.date)
         presentingVC.setDate(date)
         

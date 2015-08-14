@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentDisplayViewController: UIViewController {
+class CommentDisplayViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var commentTF: UITextField!
@@ -21,6 +21,7 @@ class CommentDisplayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        commentTF.delegate = self
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "queryOfReplies", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
@@ -32,6 +33,10 @@ class CommentDisplayViewController: UIViewController {
 
 
         // Do any additional setup after loading the view.
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func queryOfReplies() {
@@ -57,7 +62,8 @@ class CommentDisplayViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func addCommentButtonClicked(sender: AnyObject) {
-        println(commentTF.text)
+        
+        if commentTF.text != ""{
         
             let reply = Comment()
             reply.commentString = commentTF.text
@@ -69,6 +75,14 @@ class CommentDisplayViewController: UIViewController {
             reply.uploadReply()
         
             queryOfReplies()
+        } else {
+            let alertController = UIAlertController(title: nil, message: "Please Add a Comment First", preferredStyle: .Alert)
+            
+            let cancelAction = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
     }
 
    

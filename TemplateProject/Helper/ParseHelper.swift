@@ -41,6 +41,7 @@ class ParseHelper {
     static func allUsers(completionBlock: PFArrayResultBlock) -> PFQuery{
         let query = PFUser.query()!
         query.whereKey(ParseUserUsername, notEqualTo: PFUser.currentUser()!.username!)
+      // query.includeKey("share")
         query.orderByAscending(ParseUserUsername)
         query.limit = 20 //only returns 20 users
         query.findObjectsInBackgroundWithBlock(completionBlock)

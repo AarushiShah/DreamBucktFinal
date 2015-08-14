@@ -59,6 +59,14 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
             
             if let error = error {
                 ErrorHandling.defaultErrorHandler(error)
+                
+                let alertController = UIAlertController(title: nil, message: "An Error Occured. Please try again later.", preferredStyle: .Alert)
+                
+                let cancelAction = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+                alertController.addAction(cancelAction)
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+            
             }
         }
         
@@ -150,16 +158,25 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
         self.collectionView.reloadData()  // Refresh the collection view
     }
     
-    // this function is fired when the user start entering text in the Search Bar's text field
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+        //state = .SearchMode
+    }
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        searchBar.showsCancelButton = true  // Show the Search Bar's Cancel button
-        if !searchText.isEmpty {
-            isSearchOn = true  // Turn on searching function
-            self.filterContentForSearchText() // Search the collection view's dataSource
-            self.collectionView.reloadData()
-        }
+        isSearchOn = true
+        ParseHelper.searchUsers(searchText, completionBlock:updateList)
     }
     
+    // this function is fired when the user start entering text in the Search Bar's text field
+//    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+//        searchBar.showsCancelButton = true  // Show the Search Bar's Cancel button
+//        if !searchText.isEmpty {
+//            isSearchOn = true  // Turn on searching function
+//            self.filterContentForSearchText() // Search the collection view's dataSource
+//            self.collectionView.reloadData()
+//        }
+//    }
+//    
     func filterContentForSearchText() {
         // Remove all elements from the searchResults array
         searchResults.removeAll(keepCapacity: false)
@@ -173,6 +190,21 @@ class FriendsViewController: UIViewController, UICollectionViewDataSource, UICol
                 // Match found, so add it to the searchResults array variable
                 searchResults.append(imageFileName)
             }
+        }
+    }
+    
+    func updateList(results: [AnyObject]?, error: NSError?) {
+        searchResults.removeAll(keepCapacity: false)
+
+        var searchReturn = results as? [PFUser] ?? []
+        
+        for eachsearch in searchReturn {
+           searchResults.append(eachsearch.username!)
+        }
+        self.collectionView.reloadData()
+        
+        if let error = error {
+            ErrorHandling.defaultErrorHandler(error)
         }
     }
     

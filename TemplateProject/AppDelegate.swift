@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     var window: UIWindow?
     var parseLoginHelper: ParseLoginHelper!
+    var pushNotificationController:PushNotificationController?
     
     override init() {
         super.init()
@@ -81,6 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
          //self.window?.rootViewController!.presentViewController(startViewController, animated:true, completion:nil)
         self.window?.rootViewController = startViewController;
         self.window?.makeKeyAndVisible()
+        
+
     
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
@@ -109,6 +112,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func presentLogout() {
+        let loginViewController = PFLogInViewController()
+        loginViewController.fields = .UsernameAndPassword | .LogInButton | .SignUpButton | .PasswordForgotten
+        loginViewController.delegate = parseLoginHelper
+        loginViewController.signUpController?.delegate = parseLoginHelper
+
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        //self.window?.rootViewController!.presentViewController(startViewController, animated:true, completion:nil)
+        self.window?.rootViewController = loginViewController
+        self.window?.makeKeyAndVisible()
+
     }
     
     

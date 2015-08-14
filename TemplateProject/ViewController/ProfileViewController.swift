@@ -13,6 +13,8 @@ import Mixpanel
 
 class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate  {
 
+    @IBOutlet weak var visionboardButton: UIButton!
+    @IBOutlet weak var visionboardImage: UIImageView!
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
@@ -49,6 +51,7 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
         tableView.hidden = true
         usernameLabel.text = user.username
         quoteLabel.text = user["quote"] as? String
+        visionboardImage.hidden = true
         
         profileImageView.image = profileImage
         profileImageView.layer.borderWidth = 3.0
@@ -105,6 +108,29 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
             self.bucketButton.setTitle("   \(self.goalsArray.count)", forState: .Normal)
 
         }
+        
+        var existingUser = user
+        if let userImageFile = existingUser!["visionboardImage"] as? PFFile {
+            
+            userImageFile.getDataInBackgroundWithBlock {
+                (imageData: NSData?, error: NSError?) -> Void in
+                
+                let image = UIImage(data:imageData!)
+               // print(existingUser)
+               // existingUser.fetch()
+                  print(existingUser)
+                println(existingUser!["share"] as? Bool)
+                if existingUser!["share"] as? Bool == true || existingUser!["share"] as? Bool == nil  {
+                      self.visionboardImage.image = image
+                } else {
+                    self.visionboardButton.hidden = true
+
+                }
+                
+            }
+        } else {
+            visionboardButton.hidden = true
+        }
 
         
     }
@@ -132,12 +158,20 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
   
     @IBAction func viewFriendsButtonTapped(sender: AnyObject) {
         tableView.hidden = false
+        visionboardImage.hidden = true
         whichOne = "friends"
         tableView.reloadData()
     }
-    
+    @IBAction func viewVisionboardTapped(sender: AnyObject) {
+         tableView.hidden = true
+         visionboardImage.hidden = false
+        
+
+            
+    }
     @IBAction func viewAccomplishments(sender: AnyObject) {
         tableView.hidden = false
+         visionboardImage.hidden = true
         whichOne = "accomplish"
         tableView.reloadData()
     }
@@ -176,27 +210,43 @@ class ProfileViewController: UIViewController,PFLogInViewControllerDelegate, PFS
         }
     }
     @IBAction func logoutAction(sender: AnyObject) {
-        PFUser.logOut()
         
-        self.loginSetup()
+        
+        let alertController = UIAlertController(title: nil, message: "Are you sure?", preferredStyle: .Alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let logoutAction = UIAlertAction(title: "Logout", style: .Default) { action -> Void in
+            PFUser.logOut()
+            self.loginSetup()
+        }
+         alertController.addAction(logoutAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+        
     }
     
     func loginSetup() {
         
         if (PFUser.currentUser() == nil) {
             
-            var logInViewController = PFLogInViewController()
-            
-            logInViewController.delegate = self
-            
-            var signUpViewController = PFSignUpViewController()
-            
-            signUpViewController.delegate = self
-            
-            logInViewController.signUpController = signUpViewController
-            
-            self.presentViewController(logInViewController, animated: true, completion: nil)
-            
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+             appDelegate.presentLogout()
+//            
+//            var logInViewController = PFLogInViewController()
+//            
+//            logInViewController.delegate = self
+//            
+//            var signUpViewController = PFSignUpViewController()
+//            
+//            signUpViewController.delegate = self
+//            
+//            logInViewController.signUpController = signUpViewController
+//            
+//            self.presentViewController(logInViewController, animated: true, completion: nil)
+//            
            }
         }
 }
